@@ -1,8 +1,8 @@
 /**
  * Stacked Motion Flow wordmark, sized via the parent font-size (em-based).
- * MOTION: condensed heavy caps (Anton, slightly stretched). FLOW: geometric
- * extrabold caps (Poppins) with its letters justified across MOTION's exact
- * width, matching the brand logo's round O and wide W.
+ * Two faces, two lines of EQUAL height and width: MOTION in condensed heavy
+ * caps (Anton), FLOW in geometric extrabold caps (Poppins) justified across
+ * MOTION's exact width.
  */
 export default function Logo({ className = "" }: { className?: string }) {
   return (
@@ -10,10 +10,10 @@ export default function Logo({ className = "" }: { className?: string }) {
       aria-label="Motion Flow"
       className={`inline-flex w-max select-none flex-col leading-none ${className}`}
     >
-      <span className="origin-bottom scale-y-[1.18] font-logo text-[1em] leading-[0.98] tracking-[0.01em]">
+      <span className="font-logo text-[1em] leading-[0.92] tracking-[0.01em]">
         MOTION
       </span>
-      <span className="mt-[0.06em] flex w-full items-baseline justify-between font-flow text-[0.565em] font-extrabold leading-none">
+      <span className="mt-[0.1em] flex w-full justify-between font-flow text-[0.93em] font-extrabold leading-[0.85]">
         {["F", "L", "O", "W"].map((c) => (
           <span key={c}>{c}</span>
         ))}

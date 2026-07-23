@@ -14,14 +14,14 @@ type ButtonProps = {
 /*
  * The hover overlay is the signature:
  *  - primary: light gradient chip (ice to blue), dark text; on hover a diagonal
- *    white shimmer sweeps across, 300ms, slight lift.
+ *    white shimmer sweeps across (transform-only, clipped to the pill).
  *  - secondary: white text with a light-blue hairline; on hover a light fill
  *    rises from the bottom and the text flips dark.
  * Shape system: interactive elements are pills; containers are 14px.
  */
 
 const base =
-  "group relative inline-flex items-center justify-center overflow-hidden rounded-full " +
+  "group relative inline-flex items-center justify-center rounded-full " +
   "px-8 py-4 font-sans text-[15px] font-medium leading-none " +
   "transition-[transform,box-shadow,border-color] duration-300 " +
   "[transition-timing-function:var(--ease-out-expo)] " +
@@ -41,19 +41,19 @@ export default function Button({
 
   const inner = (
     <>
-      {variant === "primary" ? (
-        /* Diagonal shimmer: a soft white band that sweeps across on hover */
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-[-60%] w-[45%] -skew-x-12 bg-white/60 blur-[6px] opacity-0 transition-all duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:group-hover:left-[115%] group-hover:opacity-100"
-        />
-      ) : (
-        /* Rising fill: light gradient scales up from the bottom edge */
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 origin-bottom scale-y-0 bg-gradient-to-t from-blue to-ice transition-transform duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:group-hover:scale-y-100"
-        />
-      )}
+      {/* Overlay layer, clipped to the pill so nothing bleeds or cuts off */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
+      >
+        {variant === "primary" ? (
+          /* Diagonal shimmer: overshoots vertically, sweeps via transform only */
+          <span className="absolute inset-y-[-40%] left-0 w-3/5 -translate-x-[220%] -skew-x-12 bg-white/60 blur-md transition-transform duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:group-hover:translate-x-[300%]" />
+        ) : (
+          /* Rising fill: light gradient scales up from the bottom edge */
+          <span className="absolute inset-0 origin-bottom scale-y-0 bg-gradient-to-t from-blue to-ice transition-transform duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:group-hover:scale-y-100" />
+        )}
+      </span>
       <span
         className={
           variant === "secondary"

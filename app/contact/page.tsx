@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import PageShell from "@/components/PageShell";
+import CalendlyEmbed from "@/components/CalendlyEmbed";
 
 export const metadata: Metadata = {
   title: "Contact, Motion Flow",
@@ -21,11 +21,7 @@ export default function ContactPage() {
         projects per month.
       </p>
       <div className="mt-14 overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-4">
-        <div
-          className="calendly-inline-widget"
-          data-url={CALENDLY_URL}
-          style={{ minWidth: "320px", height: "680px" }}
-        />
+        <CalendlyEmbed url={CALENDLY_URL} />
       </div>
       <p className="mt-10 text-muted">
         Prefer email?{" "}
@@ -36,10 +32,6 @@ export default function ContactPage() {
           denys@motion-flow.com
         </a>
       </p>
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
-      />
     </PageShell>
   );
 }

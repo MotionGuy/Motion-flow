@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Script from "next/script";
 import {
   Check,
   Crosshair,
@@ -15,6 +14,7 @@ import {
 } from "@phosphor-icons/react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import CalendlyEmbed from "@/components/CalendlyEmbed";
 import Button from "@/components/ui/Button";
 import GlassIcon from "@/components/ui/GlassIcon";
 import Preloader from "@/components/ui/Preloader";
@@ -264,10 +264,9 @@ export default function Home() {
                   delay={0.5}
                   className="mt-11"
                   lines={[
-                    <span key="cta" className="flex flex-wrap justify-center gap-4">
-                      <Button href="/contact">Book a call</Button>
-                      <Button href="/work" variant="secondary">
-                        See the work
+                    <span key="cta" className="flex justify-center">
+                      <Button href="/contact" variant="secondary">
+                        Book a call
                       </Button>
                     </span>,
                   ]}
@@ -313,7 +312,7 @@ export default function Home() {
         {/* Selected work: asymmetric grid */}
         <section className="mx-auto max-w-[1280px] px-6 pb-36 md:px-10 md:pb-48">
           <Reveal>
-            <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">Selected work</h2>
+            <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">Selected work</h2>
           </Reveal>
           <div className="mt-16 grid gap-x-10 gap-y-20 md:grid-cols-12">
             <Reveal className="md:col-span-8">
@@ -332,7 +331,7 @@ export default function Home() {
               Cybersecurity pieces in production. New work landing soon.
             </span>
             <Button href="/work" variant="secondary">
-              See the work
+              See more work
             </Button>
           </Reveal>
         </section>
@@ -341,7 +340,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">
+              <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">
                 What we make
               </h2>
             </Reveal>
@@ -372,7 +371,7 @@ export default function Home() {
         {/* Why Motion Flow: four quiet cards */}
         <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
           <Reveal>
-            <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">Why Motion Flow</h2>
+            <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">Why Motion Flow</h2>
           </Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {WHY.map((w, i) => (
@@ -397,7 +396,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">How it works</h2>
+              <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">How it works</h2>
             </Reveal>
             <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
               {PROCESS.map((p, i) => (
@@ -483,7 +482,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">What clients say</h2>
+              <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">What clients say</h2>
             </Reveal>
             <div className="mt-14 grid gap-6 md:grid-cols-2">
               {TESTIMONIALS.map((t, i) => (
@@ -515,18 +514,10 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.3} className="mt-12">
               <div className="overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-4">
-                <div
-                  className="calendly-inline-widget"
-                  data-url={CALENDLY_URL}
-                  style={{ minWidth: "320px", height: "680px" }}
-                />
+                <CalendlyEmbed url={CALENDLY_URL} />
               </div>
             </Reveal>
           </div>
-          <Script
-            src="https://assets.calendly.com/assets/external/widget.js"
-            strategy="lazyOnload"
-          />
         </section>
       </main>
 
