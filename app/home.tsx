@@ -293,24 +293,8 @@ export default function Home() {
           )}
         </section>
 
-        {/* Manifesto */}
-        <section className="mx-auto max-w-[1280px] px-6 py-36 md:px-10 md:py-48">
-          <TextReveal
-            as="h2"
-            className="display mx-auto max-w-[34ch] text-center text-[clamp(2.2rem,4.5vw,3.6rem)]"
-            lines={["Security is invisible.", "We make it impossible to ignore."]}
-          />
-          <Reveal delay={0.25}>
-            <p className="mx-auto mt-10 max-w-[52ch] text-center text-lg leading-[1.7] text-muted">
-              Buyers don&apos;t fund what they can&apos;t picture. We visualize
-              the real system, no hooded hackers, no padlocks, so your product
-              lands in seconds.
-            </p>
-          </Reveal>
-        </section>
-
         {/* Selected work: asymmetric grid */}
-        <section className="mx-auto max-w-[1280px] px-6 pb-36 md:px-10 md:pb-48">
+        <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-44">
           <Reveal>
             <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">Selected work</h2>
           </Reveal>
