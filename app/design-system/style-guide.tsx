@@ -1,38 +1,34 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, type ReactNode } from "react";
+import { useReducedMotion } from "framer-motion";
 import Button from "@/components/ui/Button";
 import Tag from "@/components/ui/Tag";
 import Glow from "@/components/ui/Glow";
 import WorkCard from "@/components/ui/WorkCard";
+import TextReveal from "@/components/ui/TextReveal";
+import Preloader from "@/components/ui/Preloader";
+import LiquidBackground from "@/components/ui/LiquidBackground";
 
 /* ————————————————————————————————————————————————
-   Spec-sheet scaffolding
+   Spec scaffolding (internal documentation page)
    ———————————————————————————————————————————————— */
 
 function Section({
-  index,
   name,
   note,
   children,
 }: {
-  index: string;
   name: string;
   note: string;
   children: ReactNode;
 }) {
   return (
-    <section className="border-t border-line py-16 md:py-20">
-      <div className="grid gap-8 md:grid-cols-[220px_1fr] md:gap-12">
+    <section className="border-t border-line py-16 md:py-24">
+      <div className="grid gap-8 md:grid-cols-[240px_1fr] md:gap-12">
         <header>
-          <div className="font-mono text-[11px] tracking-[0.16em] text-violet-bright">
-            {index}
-          </div>
-          <h2 className="mt-2 font-display text-2xl font-medium tracking-[-0.01em]">
-            {name}
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted">{note}</p>
+          <h2 className="display text-3xl">{name}</h2>
+          <p className="mt-4 text-sm leading-relaxed text-muted">{note}</p>
         </header>
         <div className="min-w-0">{children}</div>
       </div>
@@ -44,53 +40,44 @@ function Spec({ items }: { items: string[] }) {
   return (
     <ul className="space-y-1.5 font-mono text-[11px] leading-relaxed tracking-[0.04em] text-muted">
       {items.map((line) => (
-        <li key={line} className="flex gap-2">
-          <span className="text-violet/70 select-none">·</span>
-          {line}
-        </li>
+        <li key={line}>{line}</li>
       ))}
     </ul>
   );
 }
 
 /* ————————————————————————————————————————————————
-   01 — Color
+   Color
    ———————————————————————————————————————————————— */
 
 const SWATCHES = [
-  { name: "Ink", hex: "#0A0B0F", varName: "--color-ink", use: "Base background — near-black, slightly cool." },
-  { name: "Panel", hex: "#14161D", varName: "--color-panel", use: "Cards and elevated surfaces." },
-  { name: "Hairline", hex: "#242833", varName: "--color-line", use: "1px borders, dividers." },
-  { name: "Hairline +", hex: "#3A4051", varName: "--color-line-bright", use: "Border hover state — brightens, never thickens." },
-  { name: "Text", hex: "#F4F5F7", varName: "--color-fg", use: "Primary text. Never pure white." },
-  { name: "Muted", hex: "#9BA1AD", varName: "--color-muted", use: "Secondary text, specs, captions." },
-  { name: "Violet", hex: "#6E56F7", varName: "--color-violet", use: "The accent. CTAs, focus, glow, key states." },
-  { name: "Violet +", hex: "#8B77FF", varName: "--color-violet-bright", use: "Accent hover, active filter text." },
-  { name: "Mint", hex: "#5EEAD4", varName: "--color-mint", use: "Status only — one live dot. Never decoration." },
+  { name: "Ink", hex: "#0B0D13", varName: "--color-ink", use: "Page background. Near-black, slightly cool." },
+  { name: "Panel", hex: "#131620", varName: "--color-panel", use: "Surfaces, embeds, posters." },
+  { name: "Hairline", hex: "#232838", varName: "--color-line", use: "1px borders and dividers." },
+  { name: "Hairline +", hex: "#39415A", varName: "--color-line-bright", use: "Border hover state. Brightens, never thickens." },
+  { name: "Text", hex: "#F5F7FA", varName: "--color-fg", use: "Primary text. Never pure white." },
+  { name: "Muted", hex: "#9BA1AD", varName: "--color-muted", use: "Secondary text and captions." },
+  { name: "Blue", hex: "#A9C7FF", varName: "--color-blue", use: "The only color. Buttons, glows, focus." },
+  { name: "Ice", hex: "#EAF1FF", varName: "--color-ice", use: "Near-white end of the button gradient." },
+  { name: "Tide", hex: "#6C85EB", varName: "--color-tide", use: "Deep periwinkle. Liquid gradient only, never UI." },
 ];
 
 function ColorSection() {
   return (
     <Section
-      index="01 / TOKENS"
       name="Color"
-      note="Dark, gallery-like, one violet accent. The UI stays quiet — the work is the color."
+      note="Monochrome dark plus white. The single color is soft light blue; it appears only on buttons, glows, and focus. No purple, no neon."
     >
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         {SWATCHES.map((s) => (
-          <div key={s.name} className="rounded-xl border border-line bg-panel p-3">
-            <div
-              className="h-16 rounded-lg border border-line"
-              style={{ background: s.hex }}
-            />
+          <div key={s.name} className="rounded-[14px] border border-line bg-panel p-3">
+            <div className="h-16 rounded-[10px] border border-line" style={{ background: s.hex }} />
             <div className="mt-3 flex items-baseline justify-between gap-2">
-              <span className="font-display text-sm font-medium">{s.name}</span>
+              <span className="text-sm font-medium">{s.name}</span>
               <span className="font-mono text-[10px] text-muted">{s.hex}</span>
             </div>
             <p className="mt-1 text-xs leading-relaxed text-muted">{s.use}</p>
-            <code className="mt-2 block font-mono text-[10px] text-muted/70">
-              {s.varName}
-            </code>
+            <code className="mt-2 block font-mono text-[10px] text-muted/70">{s.varName}</code>
           </div>
         ))}
       </div>
@@ -99,7 +86,7 @@ function ColorSection() {
 }
 
 /* ————————————————————————————————————————————————
-   02 — Typography
+   Typography
    ———————————————————————————————————————————————— */
 
 function TypeRow({
@@ -112,11 +99,7 @@ function TypeRow({
   last?: boolean;
 }) {
   return (
-    <div
-      className={`grid gap-4 py-8 lg:grid-cols-[200px_1fr] lg:gap-8 ${
-        last ? "" : "border-b border-line"
-      }`}
-    >
+    <div className={`grid gap-4 py-8 lg:grid-cols-[210px_1fr] lg:gap-8 ${last ? "" : "border-b border-line"}`}>
       <Spec items={spec} />
       <div className="min-w-0">{children}</div>
     </div>
@@ -126,44 +109,37 @@ function TypeRow({
 function TypeSection() {
   return (
     <Section
-      index="02 / TOKENS"
       name="Typography"
-      note="Clash Display carries the voice, Satoshi carries the reading, JetBrains Mono carries the spec. No Inter, no Roboto, no Arial."
+      note="Fraunces at high optical size carries the cinema; Geist carries the reading; Geist Mono carries labels. Italic is the emphasis move, always same-family."
     >
       <div className="-mt-8">
-        <TypeRow spec={["Clash Display 600", "clamp(3rem → 4.75rem)", "lh 1.04 · track −0.02em"]}>
-          <p className="font-display text-[clamp(3rem,6vw,4.75rem)] font-semibold leading-[1.04] tracking-[-0.02em]">
-            Launch videos that make cybersecurity make sense.
+        <TypeRow spec={["Fraunces · opsz 144", "clamp(2.6rem to 4.6rem)", "lh 1.08 · track -0.015em"]}>
+          <p className="display text-[clamp(2.6rem,5vw,4.6rem)]">
+            Launch videos that make cybersecurity <em className="pr-1">make sense.</em>
           </p>
         </TypeRow>
-        <TypeRow spec={["Clash Display 600", "clamp(2rem → 3rem)", "lh 1.1 · track −0.015em"]}>
-          <p className="font-display text-[clamp(2rem,3.5vw,3rem)] font-semibold leading-[1.1] tracking-[-0.015em]">
+        <TypeRow spec={["Fraunces · opsz 144", "clamp(2.2rem to 3.6rem)"]}>
+          <p className="display text-[clamp(2.2rem,4vw,3.6rem)]">
             Security is invisible. We make it impossible to ignore.
           </p>
         </TypeRow>
-        <TypeRow spec={["Clash Display 500", "1.5rem · lh 1.25"]}>
-          <p className="font-display text-2xl font-medium leading-[1.25]">
-            Launch &amp; category explainers
-          </p>
+        <TypeRow spec={["Geist 500", "1.25rem · lh 1.4"]}>
+          <p className="text-xl font-medium">Launch &amp; category explainers</p>
         </TypeRow>
-        <TypeRow spec={["Satoshi 400", "1.125rem · lh 1.7", "max 60ch"]}>
-          <p className="max-w-[60ch] text-lg leading-[1.7] text-fg">
+        <TypeRow spec={["Geist 400", "1.125rem · lh 1.7", "max 48ch"]}>
+          <p className="max-w-[48ch] text-lg leading-[1.7]">
             We turn zero trust, threat detection, and complex security products
-            into short, clear videos that convert — for launches, campaigns,
-            and the moments that matter.
+            into short, clear videos that convert.
           </p>
         </TypeRow>
-        <TypeRow spec={["Satoshi 400", "1rem · lh 1.6", "muted for secondary"]}>
-          <p className="max-w-[60ch] text-muted">
+        <TypeRow spec={["Geist 400", "1rem · lh 1.6", "muted for secondary"]}>
+          <p className="max-w-[52ch] text-muted">
             Buyers don&apos;t fund what they can&apos;t picture. We visualize
-            the real system — no hooded hackers, no padlocks — so the product
+            the real system, no hooded hackers, no padlocks, so your product
             lands in seconds.
           </p>
         </TypeRow>
-        <TypeRow
-          spec={["JetBrains Mono 500", "0.75rem · track 0.16em", "uppercase"]}
-          last
-        >
+        <TypeRow spec={["Geist Mono 500", "0.72rem · track 0.22em", "uppercase · rationed"]} last>
           <span className="eyebrow">Motion Studio · Cybersecurity</span>
         </TypeRow>
       </div>
@@ -172,32 +148,28 @@ function TypeSection() {
 }
 
 /* ————————————————————————————————————————————————
-   03 — Buttons
+   Buttons
    ———————————————————————————————————————————————— */
 
 function ButtonSection() {
   return (
     <Section
-      index="03 / COMPONENTS"
       name="Buttons"
-      note="Primary is solid violet with a soft glow; secondary is a ghost with a hairline that brightens. Hover is a small lift, not a bounce."
+      note="The hover overlay is the signature. Primary: light gradient chip, diagonal shimmer sweeps across. Secondary: blue hairline, a light fill rises from the bottom and the text flips dark."
     >
-      <div className="rounded-xl border border-line bg-panel/50 p-8 md:p-10">
+      <div className="rounded-[14px] border border-line bg-panel/50 p-8 md:p-10">
         <div className="flex flex-wrap items-center gap-4">
-          <Button arrow>Book a call</Button>
-          <Button variant="secondary" arrow>
-            See the work
-          </Button>
-          <Button variant="secondary">View all work</Button>
+          <Button>Book a call</Button>
+          <Button variant="secondary">See the work</Button>
         </div>
         <div className="mt-8 border-t border-line pt-6">
           <Spec
             items={[
-              "hover — scale 1.02 · glow 0.35 → 0.55 · arrow +4px",
-              "timing — 200ms · ease-micro",
-              "active — scale 0.99",
-              "focus — 2px violet ring, 3px offset (keyboard only)",
-              "reduced motion — color/glow change only, no transform",
+              "primary hover: shimmer sweep + lift -2px + glow up, 300ms expo-out",
+              "secondary hover: fill rises from bottom, text flips to ink, 300ms",
+              "active: scale 0.98",
+              "focus: 2px blue ring, 3px offset, keyboard only",
+              "reduced motion: color change only, no transform, no sweep",
             ]}
           />
         </div>
@@ -207,7 +179,7 @@ function ButtonSection() {
 }
 
 /* ————————————————————————————————————————————————
-   04 — Tags & badges
+   Tags & badges
    ———————————————————————————————————————————————— */
 
 const FILTERS = ["All", "Explainer", "Launch", "Demo", "Ad"];
@@ -216,79 +188,59 @@ function TagSection() {
   const [active, setActive] = useState("All");
   return (
     <Section
-      index="04 / COMPONENTS"
       name="Tags & badges"
-      note="Mono, uppercase, tracked out — the tech signal. Filters get the violet active state; the mint dot is the only place the second color exists."
+      note="Mono, uppercase, pill-shaped. Filters take the blue active state. One semantic status dot exists site-wide: the availability badge."
     >
-      <div className="space-y-8">
-        <div>
-          <div className="eyebrow mb-3 text-[10px]">Static tags — work cards, case studies</div>
-          <div className="flex flex-wrap gap-2">
-            {["Explainer", "Launch", "2D", "3D", "Deep Tech", "Web3"].map((t) => (
-              <Tag key={t}>{t}</Tag>
-            ))}
-          </div>
+      <div className="space-y-10">
+        <div className="flex flex-wrap gap-2">
+          {["Explainer", "Launch", "2D", "3D", "Deep Tech", "Web3"].map((t) => (
+            <Tag key={t}>{t}</Tag>
+          ))}
         </div>
-
-        <div>
-          <div className="eyebrow mb-3 text-[10px]">Filter chips — work grid (try them)</div>
-          <div className="flex flex-wrap gap-2">
-            {FILTERS.map((f) => (
-              <Tag
-                key={f}
-                filter
-                active={active === f}
-                onClick={() => setActive(f)}
-              >
-                {f}
-              </Tag>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2">
+          {FILTERS.map((f) => (
+            <Tag key={f} filter active={active === f} onClick={() => setActive(f)}>
+              {f}
+            </Tag>
+          ))}
         </div>
-
-        <div>
-          <div className="eyebrow mb-3 text-[10px]">Status badge — honest availability signal</div>
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-line bg-panel px-4 py-2 text-[13px] text-muted">
-            <span className="size-1.5 rounded-full bg-mint motion-safe:animate-[pulse-dot_2s_ease-in-out_infinite]" />
-            Cybersecurity pieces in production — new work landing soon.
-          </span>
-        </div>
+        <span className="inline-flex items-center gap-2.5 text-sm text-muted">
+          <span className="size-1.5 rounded-full bg-blue" />
+          Cybersecurity pieces in production. New work landing soon.
+        </span>
       </div>
     </Section>
   );
 }
 
 /* ————————————————————————————————————————————————
-   05 — Work card
+   Work card
    ———————————————————————————————————————————————— */
 
 function WorkCardSection() {
   return (
     <Section
-      index="05 / COMPONENTS"
       name="Work card"
-      note="The whole card is clickable. Thumbnails autoplay muted on hover only — never on load. The scan bar stands in until real video assets land."
+      note="Whole card clickable. Thumbnails autoplay muted on hover only, never on load. The scan line stands in until real video assets land."
     >
-      <div className="grid items-start gap-8 lg:grid-cols-[440px_1fr]">
+      <div className="grid items-start gap-8 lg:grid-cols-[460px_1fr]">
         <WorkCard
           client="Wafersight"
           outcome="A dense semiconductor data platform, made clear in 60 seconds."
           tags={["Explainer", "2D", "Deep Tech"]}
           href="#"
-          runtime="00:60"
           posterStyle={{
             background:
-              "radial-gradient(120% 140% at 80% 0%, rgba(110,86,247,0.28), transparent 55%), repeating-radial-gradient(circle at 25% 130%, rgba(155,161,173,0.09) 0 1px, transparent 1px 26px), linear-gradient(160deg, #14161D 0%, #0E1016 55%, #16112B 100%)",
+              "radial-gradient(120% 140% at 80% 0%, rgba(108,133,235,0.3), transparent 55%), repeating-radial-gradient(circle at 25% 130%, rgba(155,161,173,0.09) 0 1px, transparent 1px 26px), linear-gradient(160deg, #131620 0%, #0e1118 55%, #121a30 100%)",
           }}
         />
-        <div className="rounded-xl border border-line bg-panel/50 p-6 lg:mt-1">
+        <div className="rounded-[14px] border border-line bg-panel/50 p-6 lg:mt-1">
           <Spec
             items={[
-              "hover — lift −4px · violet-tint shadow · poster zoom 1.03",
-              "video — muted autoplay on hover only, preload none",
-              "poster — lazy-loaded image first, 16:9",
-              "anatomy — timecode · client · one-line outcome · tags · case-study link",
-              "grid — 3 col → 2 → 1 · gap 32px",
+              "hover: lift -4px, blue-tint shadow, poster zoom 1.04",
+              "video: muted autoplay on hover only, preload none",
+              "poster: lazy image first, 16:9, radius 14px",
+              "anatomy: poster, serif client, one-line outcome, tags",
             ]}
           />
         </div>
@@ -298,24 +250,29 @@ function WorkCardSection() {
 }
 
 /* ————————————————————————————————————————————————
-   06 — Glow & texture
+   Atmosphere
    ———————————————————————————————————————————————— */
 
-function GlowSection() {
+function AtmosphereSection() {
   return (
     <Section
-      index="06 / ATMOSPHERE"
-      name="Glow & texture"
-      note="Depth without decoration: one low-opacity violet radial behind heroes and section anchors, and a film grain at 4.5% over everything."
+      name="Atmosphere"
+      note="Three layers of depth: the liquid gradient behind the hero, one soft blue glow per section anchor, and a 4% film grain over everything."
     >
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="relative h-56 overflow-hidden rounded-xl border border-line bg-ink">
-          <Glow className="left-1/2 top-1/2 h-[280px] w-[420px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="relative col-span-full h-72 overflow-hidden rounded-[14px] border border-line bg-ink">
+          <LiquidBackground />
           <span className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
-            Radial glow · 12–18% · behind anchors only
+            Liquid gradient · hero only · stilled under reduced motion
           </span>
         </div>
-        <div className="relative h-56 overflow-hidden rounded-xl border border-line bg-panel">
+        <div className="relative h-56 overflow-hidden rounded-[14px] border border-line bg-ink">
+          <Glow className="left-1/2 top-1/2 h-[280px] w-[420px] -translate-x-1/2 -translate-y-1/2" />
+          <span className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+            Radial glow · 8 to 16% · behind anchors only
+          </span>
+        </div>
+        <div className="relative h-56 overflow-hidden rounded-[14px] border border-line bg-panel">
           <div
             aria-hidden
             className="absolute inset-0 opacity-[0.12]"
@@ -325,129 +282,109 @@ function GlowSection() {
             }}
           />
           <span className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
-            Grain · 4.5% site-wide (shown at 12%)
+            Grain · 4% site-wide (shown at 12%)
           </span>
         </div>
-      </div>
-      <div className="mt-6">
-        <Spec
-          items={[
-            "one glow per viewport, max — never behind body text",
-            "implementation — absolutely-positioned radial-gradient div, no images",
-            "grain — fixed SVG turbulence layer, pointer-events none",
-          ]}
-        />
       </div>
     </Section>
   );
 }
 
 /* ————————————————————————————————————————————————
-   07 — Motion
+   Motion
    ———————————————————————————————————————————————— */
 
-function EasingCurve({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
-  const d = `M0,100 C${x1 * 100},${100 - y1 * 100} ${x2 * 100},${100 - y2 * 100} 100,0`;
-  return (
-    <svg viewBox="-6 -6 112 112" className="h-20 w-24 shrink-0" aria-hidden>
-      <path d="M0,100 L100,100 M0,100 L0,0" stroke="var(--line)" strokeWidth="2" fill="none" />
-      <path d={d} stroke="var(--violet)" strokeWidth="3" fill="none" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-const DURATIONS = [
-  { ms: "150", use: "micro — tag hovers, color shifts" },
-  { ms: "200", use: "hover — buttons, cards, arrows" },
-  { ms: "300", use: "reveal — scroll fades + rises" },
-  { ms: "500", use: "slow — poster zoom, hero moments" },
-];
-
-function RevealDemo() {
+function TextRevealDemo() {
   const [run, setRun] = useState(0);
-  const reduce = useReducedMotion();
   return (
-    <div className="rounded-xl border border-line bg-panel/50 p-6">
+    <div className="rounded-[14px] border border-line bg-panel/50 p-6 md:p-8">
       <div className="flex items-center justify-between gap-4">
-        <span className="eyebrow text-[10px]">
-          Scroll reveal — fade + rise 12px · 300ms · stagger 80ms
-        </span>
-        <Button variant="secondary" className="!px-4 !py-2 !text-[13px]" onClick={() => setRun((r) => r + 1)}>
+        <Spec items={["masked line rise + fade + blur-in", "600ms · stagger 90ms · expo-out"]} />
+        <Button variant="secondary" className="!px-5 !py-2.5 !text-[13px]" onClick={() => setRun((r) => r + 1)}>
           Replay
         </Button>
       </div>
-      <div className="mt-5 grid grid-cols-3 gap-4" key={run}>
-        {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: reduce ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
-            className="rounded-lg border border-line bg-panel p-4"
-          >
-            <div className="h-2 w-2/3 rounded bg-white/10" />
-            <div className="mt-2.5 h-2 w-full rounded bg-white/[0.06]" />
-            <div className="mt-2 h-2 w-4/5 rounded bg-white/[0.06]" />
-          </motion.div>
-        ))}
+      <div className="mt-6" key={run}>
+        <TextReveal
+          immediate
+          as="p"
+          className="display text-[clamp(1.8rem,3vw,2.6rem)]"
+          lines={["Security is invisible.", <em key="i">We make it impossible to ignore.</em>]}
+        />
       </div>
     </div>
   );
 }
 
+function PreloaderDemo() {
+  const [run, setRun] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="rounded-[14px] border border-line bg-panel/50 p-6 md:p-8">
+      <div className="flex items-center justify-between gap-4">
+        <Spec
+          items={[
+            "two light streaks meet, soft flash, wordmark forms",
+            "~2.2s + 0.7s dissolve · skipped under reduced motion",
+            "drop real footage at /video/hand-left.mp4 + hand-right.mp4",
+          ]}
+        />
+        <Button
+          variant="secondary"
+          className="!px-5 !py-2.5 !text-[13px]"
+          onClick={() => {
+            setRun((r) => r + 1);
+            setPlaying(true);
+          }}
+        >
+          Replay
+        </Button>
+      </div>
+      <div className="relative mt-6 aspect-video overflow-hidden rounded-[10px] border border-line bg-ink">
+        {playing && <Preloader key={run} contained onComplete={() => setPlaying(false)} />}
+        {!playing && (
+          <span className="absolute inset-0 flex items-center justify-center text-sm text-muted">
+            Press replay to run the loading sequence
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const DURATIONS = [
+  { ms: "150", use: "micro: tag hovers, color shifts" },
+  { ms: "300", use: "hover: buttons, cards, overlay sweeps" },
+  { ms: "600", use: "reveal: text lines, section rises" },
+  { ms: "2200", use: "one cinematic moment: the preloader" },
+];
+
 function MotionSection() {
+  const reduce = useReducedMotion();
   return (
     <Section
-      index="07 / MOTION"
       name="Motion"
-      note="Motion serves comprehension, never fights it. One hero moment per page; everything else is a quiet reveal. If it doesn't aid hierarchy, cut it."
+      note="A few beautifully executed moments: the preloader, the text reveals, the button overlays. Everything else stays still. If it doesn't aid comprehension, cut it."
     >
       <div className="space-y-8">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="flex items-center gap-5 rounded-xl border border-line bg-panel/50 p-5">
-            <EasingCurve x1={0.16} y1={1} x2={0.3} y2={1} />
-            <div>
-              <div className="font-display text-sm font-medium">ease-out-expo</div>
-              <code className="mt-1 block font-mono text-[10px] text-muted">
-                cubic-bezier(0.16, 1, 0.3, 1)
-              </code>
-              <p className="mt-1.5 text-xs text-muted">Reveals, zooms — fast in, soft landing.</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-5 rounded-xl border border-line bg-panel/50 p-5">
-            <EasingCurve x1={0.25} y1={0.46} x2={0.45} y2={0.94} />
-            <div>
-              <div className="font-display text-sm font-medium">ease-micro</div>
-              <code className="mt-1 block font-mono text-[10px] text-muted">
-                cubic-bezier(0.25, 0.46, 0.45, 0.94)
-              </code>
-              <p className="mt-1.5 text-xs text-muted">Hovers, presses — even, unfussy.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="overflow-hidden rounded-xl border border-line">
+        <div className="overflow-hidden rounded-[14px] border border-line">
           {DURATIONS.map((d, i) => (
             <div
               key={d.ms}
-              className={`flex items-baseline gap-6 px-5 py-3.5 ${
-                i % 2 ? "bg-panel/40" : "bg-panel/70"
-              }`}
+              className={`flex items-baseline gap-6 px-5 py-3.5 ${i % 2 ? "bg-panel/40" : "bg-panel/70"}`}
             >
-              <span className="w-16 font-mono text-sm text-violet-bright">{d.ms}ms</span>
+              <span className="w-20 font-mono text-sm text-blue">{d.ms}ms</span>
               <span className="text-sm text-muted">{d.use}</span>
             </div>
           ))}
         </div>
-
-        <RevealDemo />
-
+        <TextRevealDemo />
+        <PreloaderDemo />
         <Spec
           items={[
-            "triggers — whileInView, once, −10% margin · passive listeners",
-            "video — posters first, lazy-load, cap concurrent autoplay",
-            "prefers-reduced-motion — transforms drop, fades stay",
-            "budget — 60fps or the effect gets cut",
+            "ease: cubic-bezier(0.16, 1, 0.3, 1) everywhere",
+            "triggers: whileInView, once, -12% margin",
+            `reduced motion: ${reduce ? "active in this browser" : "transforms drop, fades stay"}`,
           ]}
         />
       </div>
@@ -459,55 +396,32 @@ function MotionSection() {
    Page
    ———————————————————————————————————————————————— */
 
-function StickyHeader() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return (
-    <header
-      className={`sticky top-0 z-40 transition-all duration-300 [transition-timing-function:var(--ease-out-expo)] ${
-        scrolled
-          ? "border-b border-line bg-ink/75 py-3 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent py-5"
-      }`}
-    >
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6">
-        <span className="font-display text-lg font-medium tracking-[-0.01em]">
-          Motion Flow<span className="text-violet">.</span>
-        </span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-          Design system · v1.0
-        </span>
-      </div>
-    </header>
-  );
-}
-
 export default function StyleGuide() {
   return (
-    <div className="min-h-screen">
-      <StickyHeader />
+    <div className="min-h-[100dvh]">
+      <header className="border-b border-line">
+        <div className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between px-6">
+          <span className="text-[15px] font-semibold tracking-[-0.01em]">Motion Flow</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+            Design system · v2.0
+          </span>
+        </div>
+      </header>
 
       <main className="mx-auto max-w-[1200px] px-6">
-        {/* Hero */}
-        <div className="relative py-20 md:py-28">
+        <div className="relative py-24 md:py-32">
           <Glow className="left-1/2 top-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2" />
           <div className="relative">
-            <span className="eyebrow">Motion Flow · Design system · v1.0</span>
-            <h1 className="mt-5 max-w-[16ch] font-display text-[clamp(2.75rem,5.5vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.02em]">
-              Quiet UI. Loud work.
+            <h1 className="display max-w-[14ch] text-[clamp(2.6rem,5.5vw,4.4rem)]">
+              Cinematic, editorial, <em className="pr-1">restrained.</em>
             </h1>
-            <p className="mt-6 max-w-[52ch] text-lg leading-[1.7] text-muted">
-              Every token, component, and easing curve the site is built from.
-              The interface stays restrained and dark; the videos are the
-              color. Approve this page and every page inherits it.
+            <p className="mt-7 max-w-[50ch] text-lg leading-[1.7] text-muted">
+              Monochrome dark with one soft light blue. Fraunces for the
+              cinema, Geist for the reading. The luxury is in the space and
+              the type; the boldness lives in the preloader.
             </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {["8px grid", "Max 1200px", "Radius 10px", "1px hairlines"].map((c) => (
+            <div className="mt-9 flex flex-wrap gap-2">
+              {["Max 1280px", "Pill buttons", "14px containers", "1px hairlines"].map((c) => (
                 <Tag key={c}>{c}</Tag>
               ))}
             </div>
@@ -519,7 +433,7 @@ export default function StyleGuide() {
         <ButtonSection />
         <TagSection />
         <WorkCardSection />
-        <GlowSection />
+        <AtmosphereSection />
         <MotionSection />
 
         <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-line py-10">
@@ -527,7 +441,7 @@ export default function StyleGuide() {
             © 2026 Motion Flow
           </span>
           <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-            On approval → <span className="text-violet-bright">Home</span>
+            v2.0 · cinematic editorial
           </span>
         </footer>
       </main>
