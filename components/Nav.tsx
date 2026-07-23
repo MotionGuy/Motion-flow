@@ -65,7 +65,7 @@ export default function Nav() {
             <Logo className="h-10" />
           </Link>
           <div className="flex items-center gap-3">
-            <Button href="/contact" className="!px-6 !py-3 !text-sm">
+            <Button href="/contact" variant="secondary" className="!px-6 !py-3 !text-sm">
               Book a call
             </Button>
             <button
@@ -146,7 +146,7 @@ export default function Nav() {
                   denys@motion-flow.com
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/systrenskyi"
+                  href="https://www.linkedin.com/in/denys-systrenskyi/"
                   target="_blank"
                   rel="noreferrer"
                   className="block text-sm text-muted transition-colors duration-200 hover:text-fg"

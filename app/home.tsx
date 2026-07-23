@@ -455,7 +455,7 @@ export default function Home() {
                   </ul>
                   {p.featured && (
                     <div className="mt-8">
-                      <Button href="/contact" className="w-full">
+                      <Button href="/contact" variant="secondary" className="w-full">
                         Book a call
                       </Button>
                     </div>

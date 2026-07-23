@@ -18,7 +18,7 @@ export default function ServicesPage() {
         from $2,000, 3D from $4,000, subscriptions from $4,995/mo.
       </p>
       <div className="mt-11">
-        <Button href="/contact">Book a call</Button>
+        <Button href="/contact" variant="secondary">Book a call</Button>
       </div>
     </PageShell>
   );

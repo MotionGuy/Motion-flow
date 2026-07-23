@@ -46,7 +46,7 @@ export default function AboutPage() {
         ))}
       </div>
       <div className="mt-16">
-        <Button href="/contact">Book a call</Button>
+        <Button href="/contact" variant="secondary">Book a call</Button>
       </div>
     </PageShell>
   );

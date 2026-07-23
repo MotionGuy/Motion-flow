@@ -8,7 +8,8 @@ type WorkCardProps = {
   client: string;
   outcome: string;
   tags: string[];
-  href: string;
+  /** Omit while case-study pages don't exist yet; card renders unlinked */
+  href?: string;
   /** Poster background while real video assets land: a bespoke gradient per client */
   posterStyle?: CSSProperties;
   /** When real assets exist: poster image + hover-autoplay video */
@@ -32,11 +33,9 @@ export default function WorkCard({
   videoSrc,
   className = "",
 }: WorkCardProps) {
-  return (
-    <Link
-      href={href}
-      className={`group block transition-[transform] duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:-translate-y-1 ${className}`}
-    >
+  const wrapperClass = `group block transition-[transform] duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:-translate-y-1 ${className}`;
+
+  const card = (
       <article>
         <div className="relative aspect-video overflow-hidden rounded-[14px] border border-line bg-panel transition-shadow duration-300 group-hover:shadow-[0_28px_56px_-20px_rgba(0,0,0,0.7),0_0_36px_rgba(169,199,255,0.08)]">
           {posterSrc ? (
@@ -62,7 +61,7 @@ export default function WorkCard({
               loop
               playsInline
               preload="none"
-              onMouseEnter={(e) => e.currentTarget.play()}
+              onMouseEnter={(e) => e.currentTarget.play().catch(() => {})}
               onMouseLeave={(e) => e.currentTarget.pause()}
             />
           )}
@@ -82,6 +81,14 @@ export default function WorkCard({
           ))}
         </div>
       </article>
-    </Link>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={wrapperClass}>
+        {card}
+      </Link>
+    );
+  }
+  return <div className={wrapperClass}>{card}</div>;
 }

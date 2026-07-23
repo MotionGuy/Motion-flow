@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-line">
       <div className="mx-auto max-w-[1280px] px-6 py-20 md:px-10 md:py-28">
-        <p className="display max-w-[26ch] text-3xl md:text-4xl">
+        <p className="display whitespace-nowrap text-[clamp(1.25rem,2.9vw,2.25rem)]">
           Motion that makes security make sense.
         </p>
         <div className="mt-14 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
@@ -23,7 +23,7 @@ export default function Footer() {
               denys@motion-flow.com
             </a>
             <a
-              href="https://www.linkedin.com/in/systrenskyi"
+              href="https://www.linkedin.com/in/denys-systrenskyi/"
               target="_blank"
               rel="noreferrer"
               className="block text-muted transition-colors duration-200 hover:text-fg"
