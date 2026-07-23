@@ -130,16 +130,9 @@ export default function Nav() {
                     <Link
                       href={l.href}
                       onClick={() => setOpen(false)}
-                      className="group relative -mx-4 block rounded-xl px-4 py-2"
+                      className="display block text-4xl text-fg transition-colors duration-300 hover:text-blue"
                     >
-                      {/* Blue плашка sweeps in behind the label */}
-                      <span
-                        aria-hidden
-                        className="absolute inset-0 origin-left scale-x-0 rounded-xl bg-blue transition-transform duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:group-hover:scale-x-100"
-                      />
-                      <span className="display relative text-4xl text-fg transition-colors duration-300 group-hover:text-ink">
-                        {l.label}
-                      </span>
+                      {l.label}
                     </Link>
                   </motion.span>
                 ))}
