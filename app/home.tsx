@@ -99,10 +99,10 @@ export default function Home() {
       <Nav />
 
       <main>
-        {/* Hero */}
-        <section className="relative flex min-h-[100dvh] flex-col justify-end overflow-hidden">
+        {/* Hero: centered manifesto over the liquid glow */}
+        <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
           <LiquidBackground />
-          <div className="relative mx-auto w-full max-w-[1280px] px-6 pb-24 pt-24 md:px-10 md:pb-32">
+          <div className="relative mx-auto w-full max-w-[1280px] px-6 pt-16 text-center md:px-10">
             {heroReady && (
               <>
                 <TextReveal
@@ -117,7 +117,7 @@ export default function Home() {
                   immediate
                   as="h1"
                   delay={0.12}
-                  className="display mt-7 max-w-[900px] text-[clamp(2.6rem,5.6vw,4.6rem)]"
+                  className="display mx-auto mt-7 max-w-[920px] text-[clamp(2.6rem,5.6vw,4.6rem)]"
                   lines={[
                     "Launch videos that make",
                     <span key="l2">
@@ -129,7 +129,7 @@ export default function Home() {
                   immediate
                   as="p"
                   delay={0.34}
-                  className="mt-8 max-w-[46ch] text-lg leading-[1.7] text-muted"
+                  className="mx-auto mt-8 max-w-[46ch] text-lg leading-[1.7] text-muted"
                   lines={[
                     "We turn zero trust, threat detection, and complex",
                     "security products into short, clear videos that convert.",
@@ -140,7 +140,7 @@ export default function Home() {
                   delay={0.5}
                   className="mt-11"
                   lines={[
-                    <span key="cta" className="flex flex-wrap gap-4">
+                    <span key="cta" className="flex flex-wrap justify-center gap-4">
                       <Button href="/contact">Book a call</Button>
                       <Button href="/work" variant="secondary">
                         See the work

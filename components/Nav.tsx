@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
+import Logo from "@/components/ui/Logo";
 
 const LINKS = [
   { href: "/work", label: "Work" },
@@ -39,18 +40,15 @@ export default function Nav() {
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-6 md:px-10">
-        <Link
-          href="/"
-          className="font-sans text-[15px] font-semibold tracking-[-0.01em] text-fg"
-        >
-          Motion Flow
+        <Link href="/" aria-label="Motion Flow home" className="text-fg">
+          <Logo className="text-[14px]" />
         </Link>
         <nav className="hidden items-center gap-9 md:flex" aria-label="Main">
           {LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm text-muted transition-colors duration-200 hover:text-fg"
+              className="relative text-sm text-muted transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-fg after:transition-transform after:duration-300 after:[transition-timing-function:var(--ease-out-expo)] hover:text-fg motion-safe:hover:after:scale-x-100"
             >
               {l.label}
             </Link>

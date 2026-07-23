@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import { Anton, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+/* Anton drives the condensed stacked wordmark only */
+const anton = Anton({
+  variable: "--font-anton",
   subsets: ["latin"],
-  axes: ["opsz"],
-  style: ["normal", "italic"],
+  weight: "400",
 });
 
 const geist = Geist({
@@ -34,8 +34,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${anton.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link
+          rel="preconnect"
+          href="https://cdn.fontshare.com"
+          crossOrigin="anonymous"
+        />
+        {/* Zodiak: high-contrast editorial display serif */}
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=zodiak@400,401,500,700&display=swap"
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         {children}
         <div className="grain" aria-hidden />

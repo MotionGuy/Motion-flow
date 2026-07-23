@@ -28,7 +28,8 @@
   --color-ice: var(--ice);
   --color-tide: var(--tide);
 
-  --font-display: var(--font-fraunces), "Fraunces", serif;
+  --font-display: "Zodiak", "Zodiak Fallback", serif;
+  --font-logo: var(--font-anton), "Anton", sans-serif;
   --font-sans: var(--font-geist), "Geist", system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
 
@@ -56,13 +57,12 @@ body {
   border-radius: 4px;
 }
 
-/* Editorial display type: Fraunces at high optical size */
+/* Editorial display type: Zodiak, high contrast */
 .display {
   font-family: var(--font-display);
-  font-variation-settings: "opsz" 144;
-  font-weight: 420;
-  letter-spacing: -0.015em;
-  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
 }
 
 .eyebrow {
@@ -118,6 +118,18 @@ body {
   }
   100% {
     transform: translate(10%, -4%) scale(1);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.16;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1.14);
   }
 }
 

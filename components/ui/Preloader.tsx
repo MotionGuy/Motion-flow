@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Logo from "./Logo";
 
 type PreloaderProps = {
   /** Called once the overlay has fully dissolved (or was skipped) */
@@ -14,13 +15,15 @@ type PreloaderProps = {
  * Cinematic preloader. Two hands reach toward each other and meet in the
  * center; drop real footage at /video/hand-left.mp4 and /video/hand-right.mp4
  * to enable the film version. Until those files exist, the abstract fallback
- * runs: two thin light streaks slide in from the edges, meet with a soft
- * flash, and the wordmark forms at the point of contact. ~2.2s total, then
- * the overlay dissolves. Skipped entirely under prefers-reduced-motion.
+ * runs: two thin light streaks slide in from the edges and stop where the
+ * logo's edges begin. At contact, a soft glow blooms and stays, emphasizing
+ * the logo as it forms. ~2.3s, then the overlay dissolves. Skipped entirely
+ * under prefers-reduced-motion.
  */
 
-const MEET = 1.0; // seconds until the streaks touch
-const HOLD = 2.2; // total time before the overlay dissolves
+const MEET = 1.0; // seconds until the streaks reach the logo edges
+const HOLD = 2.3; // total time before the overlay dissolves
+const EDGE = 104; // px from center where the streaks stop (logo half-width + air)
 
 export default function Preloader({ onComplete, contained }: PreloaderProps) {
   const reduce = useReducedMotion();
@@ -79,39 +82,41 @@ export default function Preloader({ onComplete, contained }: PreloaderProps) {
             </>
           ) : (
             <>
-              {/* Streak from the left */}
+              {/* Streak from the left: inner end stops at the logo's left edge */}
               <motion.span
-                className="absolute top-1/2 h-px w-[38%] bg-gradient-to-r from-transparent via-ice/80 to-ice shadow-[0_0_18px_rgba(169,199,255,0.8)]"
-                initial={{ left: "-40%" }}
-                animate={{ left: "12%" }}
+                className="absolute top-1/2 h-px w-[34vw] bg-gradient-to-r from-transparent via-ice/70 to-ice shadow-[0_0_18px_rgba(169,199,255,0.8)]"
+                style={{ right: `calc(50% + ${EDGE}px)` }}
+                initial={{ x: "-70vw", opacity: 0.4 }}
+                animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: MEET, ease: [0.16, 1, 0.3, 1] }}
               />
-              {/* Streak from the right */}
+              {/* Streak from the right: inner end stops at the logo's right edge */}
               <motion.span
-                className="absolute top-1/2 h-px w-[38%] bg-gradient-to-l from-transparent via-ice/80 to-ice shadow-[0_0_18px_rgba(169,199,255,0.8)]"
-                initial={{ right: "-40%" }}
-                animate={{ right: "12%" }}
+                className="absolute top-1/2 h-px w-[34vw] bg-gradient-to-l from-transparent via-ice/70 to-ice shadow-[0_0_18px_rgba(169,199,255,0.8)]"
+                style={{ left: `calc(50% + ${EDGE}px)` }}
+                initial={{ x: "70vw", opacity: 0.4 }}
+                animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: MEET, ease: [0.16, 1, 0.3, 1] }}
               />
-              {/* Soft flash at the meeting point */}
+              {/* Glow blooms at contact and stays, holding the logo in light */}
               <motion.span
-                className="absolute size-[340px] rounded-full"
+                className="absolute size-[420px] rounded-full"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(234,241,255,0.5), rgba(169,199,255,0.18) 40%, transparent 70%)",
+                    "radial-gradient(circle, rgba(234,241,255,0.4), rgba(169,199,255,0.16) 42%, transparent 70%)",
                 }}
-                initial={{ opacity: 0, scale: 0.3 }}
-                animate={{ opacity: [0, 1, 0], scale: [0.3, 1.15, 1.6] }}
-                transition={{ duration: 0.9, delay: MEET - 0.08, ease: "easeOut" }}
+                initial={{ opacity: 0, scale: 0.35 }}
+                animate={{ opacity: [0, 1, 0.55], scale: [0.35, 1.15, 1] }}
+                transition={{ duration: 1.0, delay: MEET - 0.08, ease: "easeOut" }}
               />
-              {/* Wordmark forms at contact */}
+              {/* The logo forms in the gap between the streaks */}
               <motion.span
-                className="display relative text-3xl text-fg md:text-4xl"
+                className="relative"
                 initial={{ opacity: 0, filter: "blur(10px)", scale: 0.96 }}
                 animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
                 transition={{ duration: 0.55, delay: MEET, ease: [0.16, 1, 0.3, 1] }}
               >
-                Motion Flow
+                <Logo className="text-[48px] text-fg" />
               </motion.span>
             </>
           )}

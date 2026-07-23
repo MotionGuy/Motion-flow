@@ -110,15 +110,15 @@ function TypeSection() {
   return (
     <Section
       name="Typography"
-      note="Fraunces at high optical size carries the cinema; Geist carries the reading; Geist Mono carries labels. Italic is the emphasis move, always same-family."
+      note="Zodiak carries the cinema; Geist carries the reading; Geist Mono carries labels; Anton exists only inside the wordmark. Italic is the emphasis move, always same-family."
     >
       <div className="-mt-8">
-        <TypeRow spec={["Fraunces · opsz 144", "clamp(2.6rem to 4.6rem)", "lh 1.08 · track -0.015em"]}>
+        <TypeRow spec={["Zodiak 400", "clamp(2.6rem to 4.6rem)", "lh 1.1 · track -0.01em"]}>
           <p className="display text-[clamp(2.6rem,5vw,4.6rem)]">
             Launch videos that make cybersecurity <em className="pr-1">make sense.</em>
           </p>
         </TypeRow>
-        <TypeRow spec={["Fraunces · opsz 144", "clamp(2.2rem to 3.6rem)"]}>
+        <TypeRow spec={["Zodiak 400", "clamp(2.2rem to 3.6rem)"]}>
           <p className="display text-[clamp(2.2rem,4vw,3.6rem)]">
             Security is invisible. We make it impossible to ignore.
           </p>
@@ -324,8 +324,8 @@ function PreloaderDemo() {
       <div className="flex items-center justify-between gap-4">
         <Spec
           items={[
-            "two light streaks meet, soft flash, wordmark forms",
-            "~2.2s + 0.7s dissolve · skipped under reduced motion",
+            "streaks stop at the logo edges; the glow holds on the logo",
+            "~2.3s + 0.7s dissolve · skipped under reduced motion",
             "drop real footage at /video/hand-left.mp4 + hand-right.mp4",
           ]}
         />
@@ -416,7 +416,7 @@ export default function StyleGuide() {
               Cinematic, editorial, <em className="pr-1">restrained.</em>
             </h1>
             <p className="mt-7 max-w-[50ch] text-lg leading-[1.7] text-muted">
-              Monochrome dark with one soft light blue. Fraunces for the
+              Monochrome dark with one soft light blue. Zodiak for the
               cinema, Geist for the reading. The luxury is in the space and
               the type; the boldness lives in the preloader.
             </p>

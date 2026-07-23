@@ -47,6 +47,12 @@ export default function Footer() {
           © 2026 Motion Flow
         </p>
       </div>
+      {/* Giant wordmark, barely there: the site signs off with the brand */}
+      <div aria-hidden className="select-none overflow-hidden pb-2">
+        <p className="whitespace-nowrap text-center font-logo text-[12.5vw] leading-[0.82] text-fg/[0.05]">
+          MOTION FLOW
+        </p>
+      </div>
     </footer>
   );
 }
