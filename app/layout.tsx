@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anton, Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Anton, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 /* Anton drives the condensed stacked wordmark only */
@@ -7,13 +7,6 @@ const anton = Anton({
   variable: "--font-anton",
   subsets: ["latin"],
   weight: "400",
-});
-
-/* Poppins 800 pairs with Anton inside the wordmark: geometric FLOW under condensed MOTION */
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: "800",
 });
 
 const geist = Geist({
@@ -41,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${poppins.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${anton.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" />

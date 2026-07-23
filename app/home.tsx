@@ -224,7 +224,7 @@ export default function Home() {
 
       <main>
         {/* Hero: centered manifesto over the liquid glow */}
-        <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
+        <section className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden">
           <LiquidBackground />
           <div className="relative mx-auto w-full max-w-[1280px] px-6 pt-16 text-center md:px-10">
             {heroReady && (
@@ -276,7 +276,7 @@ export default function Home() {
           </div>
           {/* Client names float across the bottom edge, fading out at the sides */}
           {heroReady && (
-            <div className="absolute inset-x-0 bottom-8">
+            <div className="relative mt-16 w-full pb-6 md:absolute md:inset-x-0 md:bottom-8 md:mt-0 md:pb-0">
               <TextReveal
                 immediate
                 delay={0.75}

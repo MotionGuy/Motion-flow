@@ -62,7 +62,7 @@ export default function Nav() {
       >
         <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-6 md:px-10">
           <Link href="/" aria-label="Motion Flow home" className="text-fg">
-            <Logo className="text-[14px]" />
+            <Logo className="h-10" />
           </Link>
           <div className="flex items-center gap-3">
             <Button href="/contact" className="!px-6 !py-3 !text-sm">

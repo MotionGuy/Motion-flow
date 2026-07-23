@@ -30,7 +30,6 @@
 
   --font-display: "Zodiak", "Zodiak Fallback", serif;
   --font-logo: var(--font-anton), "Anton", sans-serif;
-  --font-flow: var(--font-poppins), "Poppins", sans-serif;
   --font-sans: var(--font-geist), "Geist", system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
 

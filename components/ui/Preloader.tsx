@@ -23,7 +23,7 @@ type PreloaderProps = {
 
 const MEET = 1.0; // seconds until the streaks reach the logo edges
 const HOLD = 2.3; // total time before the overlay dissolves
-const EDGE = 104; // px from center where the streaks stop (logo half-width + air)
+const EDGE = 96; // px from center where the streaks stop (logo half-width + air)
 
 export default function Preloader({ onComplete, contained }: PreloaderProps) {
   const reduce = useReducedMotion();
@@ -116,7 +116,7 @@ export default function Preloader({ onComplete, contained }: PreloaderProps) {
                 animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
                 transition={{ duration: 0.55, delay: MEET, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Logo className="text-[48px] text-fg" />
+                <Logo className="h-[140px] text-fg" />
               </motion.span>
             </>
           )}
