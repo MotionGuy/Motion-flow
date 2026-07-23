@@ -2,9 +2,21 @@
 
 import { useState } from "react";
 import Script from "next/script";
+import {
+  Check,
+  Crosshair,
+  Diamond,
+  Eye,
+  FilmSlate,
+  NotePencil,
+  PaperPlaneTilt,
+  Sparkle,
+  UserCircle,
+} from "@phosphor-icons/react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Button from "@/components/ui/Button";
+import GlassIcon from "@/components/ui/GlassIcon";
 import Preloader from "@/components/ui/Preloader";
 import LiquidBackground from "@/components/ui/LiquidBackground";
 import TextReveal from "@/components/ui/TextReveal";
@@ -42,53 +54,165 @@ const WORK = [
   },
 ];
 
+const CLIENTS = ["Orally", "Wafersight", "Miggles", "Hyper"];
+
+/* Media zones are gradient stand-ins; drop stills or muted loops in later. */
 const SERVICES = [
   {
     title: "Launch & category explainers",
     line: "The hero film for a product or category launch.",
+    span: "md:col-span-7",
+    media:
+      "radial-gradient(110% 160% at 15% 0%, rgba(108,133,235,0.32), transparent 55%), linear-gradient(155deg, #10131c 30%, #121a30 100%)",
   },
   {
     title: "Product demos",
     line: "Show the product doing the thing, clearly.",
+    span: "md:col-span-5",
+    media:
+      "linear-gradient(120deg, rgba(234,241,255,0.1), transparent 45%), linear-gradient(200deg, #121622 10%, #0e1118 90%)",
   },
   {
     title: "Paid social & ad creative",
     line: "Cutdown packs and variants built to test.",
+    span: "md:col-span-5",
+    media:
+      "radial-gradient(90% 130% at 85% 110%, rgba(169,199,255,0.18), transparent 60%), linear-gradient(160deg, #10131c, #131620)",
   },
   {
     title: "Conference & booth films",
     line: "Loops and sizzle for RSAC, Black Hat, DEF CON.",
+    span: "md:col-span-7",
+    media:
+      "radial-gradient(120% 150% at 50% 120%, rgba(43,60,114,0.75), transparent 65%), linear-gradient(140deg, #0e1118, #121a30)",
   },
 ];
 
 const WHY = [
   {
+    icon: Crosshair,
     title: "Cyber-only focus",
     line: "We speak SOC, zero trust, XDR, and identity. No glossary needed.",
   },
   {
+    icon: Eye,
     title: "Clarity over clichés",
     line: "No hooded hackers, no padlocks. We visualize your actual architecture.",
   },
   {
+    icon: Diamond,
     title: "Launch-grade craft",
     line: "Built for RSAC moments, product launches, and paid social.",
   },
   {
+    icon: UserCircle,
     title: "Founder-led",
     line: "You talk to the person who makes the work.",
   },
 ];
 
 const PROCESS = [
-  { n: "01", title: "Brief & script", line: "We find the one idea worth sixty seconds." },
-  { n: "02", title: "Storyboard & style frames", line: "You see the film before we animate it." },
-  { n: "03", title: "Animation", line: "Launch-grade motion, sound, and voiceover." },
-  { n: "04", title: "Delivery & cutdowns", line: "Master film plus the variants you need." },
+  {
+    icon: NotePencil,
+    n: "01",
+    title: "Brief & script",
+    line: "We find the one idea worth sixty seconds.",
+  },
+  {
+    icon: FilmSlate,
+    n: "02",
+    title: "Storyboard & style frames",
+    line: "You see the film before we animate it.",
+  },
+  {
+    icon: Sparkle,
+    n: "03",
+    title: "Animation",
+    line: "Launch-grade motion, sound, and voiceover.",
+  },
+  {
+    icon: PaperPlaneTilt,
+    n: "04",
+    title: "Delivery & cutdowns",
+    line: "Master film plus the variants you need.",
+  },
+];
+
+const PRICING = [
+  {
+    name: "2D animation",
+    price: "from $2,000",
+    features: [
+      "30 seconds for $2,000",
+      "60 seconds from $3,000",
+      "90 seconds from $4,000",
+      "Short-form bundle: 10 videos for $7,000",
+    ],
+    featured: false,
+  },
+  {
+    name: "Subscription",
+    price: "$4,995/mo",
+    features: [
+      "One active project at a time",
+      "Unlimited videos",
+      "Unlimited revisions",
+      "Cancel anytime",
+    ],
+    featured: true,
+  },
+  {
+    name: "3D animation",
+    price: "from $4,000",
+    features: [
+      "30 seconds for $4,000",
+      "60 seconds for $6,000",
+      "90 seconds for $8,000",
+      "Launch-grade 3D for hero moments",
+    ],
+    featured: false,
+  },
+];
+
+/* MOCK quotes: layout placeholders only. Swap for real client words before
+   launch; attribution stays role-level until names are approved. */
+const TESTIMONIALS = [
+  {
+    quote:
+      "They took a protocol we struggled to explain and made it land in under a minute.",
+    who: "Founder, Orally",
+  },
+  {
+    quote:
+      "The film made a dense data product finally look simple. Our demos start themselves now.",
+    who: "Product lead, Wafersight",
+  },
 ];
 
 const CALENDLY_URL =
   "https://calendly.com/systrenskyi/discussing-collaboration-opportunities?background_color=131620&text_color=f5f7fa&primary_color=a9c7ff&hide_gdpr_banner=1";
+
+function ClientMarquee() {
+  const row = [...CLIENTS, ...CLIENTS, ...CLIENTS];
+  return (
+    <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_18%,black_82%,transparent)]">
+      <div className="flex w-max motion-safe:animate-[marquee_30s_linear_infinite]">
+        {[0, 1].map((half) => (
+          <div key={half} className="flex shrink-0" aria-hidden={half === 1}>
+            {row.map((name, i) => (
+              <span
+                key={`${half}-${i}`}
+                className="mx-8 text-lg font-semibold tracking-[0.02em] text-muted/50"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
@@ -151,28 +275,23 @@ export default function Home() {
               </>
             )}
           </div>
-        </section>
-
-        {/* Trust strip */}
-        <section className="border-t border-line">
-          <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-10">
-            <Reveal>
-              <p className="text-sm text-muted">
-                Trusted by teams building complex, technical products.
-              </p>
-              {/* TODO: swap for real client SVG logos when files land */}
-              <div className="mt-8 flex flex-wrap items-center gap-x-14 gap-y-5">
-                {["Orally", "Wafersight", "Miggles", "Hyper"].map((c) => (
-                  <span
-                    key={c}
-                    className="font-sans text-lg font-semibold tracking-[0.02em] text-muted/60"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
-          </div>
+          {/* Client names float across the bottom edge, fading out at the sides */}
+          {heroReady && (
+            <div className="absolute inset-x-0 bottom-8">
+              <TextReveal
+                immediate
+                delay={0.75}
+                lines={[
+                  <span key="m" className="block">
+                    <span className="mb-5 block text-center text-sm text-muted/70">
+                      Trusted by teams building complex, technical products.
+                    </span>
+                    <ClientMarquee />
+                  </span>,
+                ]}
+              />
+            </div>
+          )}
         </section>
 
         {/* Manifesto */}
@@ -218,7 +337,7 @@ export default function Home() {
           </Reveal>
         </section>
 
-        {/* What we make: quiet 2x2 */}
+        {/* What we make: bento tiles with media zones */}
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
@@ -226,17 +345,23 @@ export default function Home() {
                 What we make
               </h2>
             </Reveal>
-            <div className="mt-16 grid gap-x-16 gap-y-14 sm:grid-cols-2">
+            <div className="mt-16 grid gap-6 md:grid-cols-12">
               {SERVICES.map((s, i) => (
-                <Reveal key={s.title} delay={i * 0.06}>
-                  <div className="border-t border-line pt-6">
+                <Reveal key={s.title} delay={i * 0.06} className={s.span}>
+                  <div className="flex h-full flex-col rounded-[14px] border border-line bg-panel/60 p-7">
                     <h3 className="text-xl font-medium">{s.title}</h3>
                     <p className="mt-2 text-muted">{s.line}</p>
+                    {/* TODO: swap gradients for stills / muted loops per service */}
+                    <div
+                      aria-hidden
+                      className="mt-6 aspect-[16/7] w-full rounded-[10px] border border-line/60"
+                      style={{ background: s.media }}
+                    />
                   </div>
                 </Reveal>
               ))}
             </div>
-            <Reveal className="mt-16">
+            <Reveal className="mt-14">
               <Button href="/services" variant="secondary">
                 See full pricing
               </Button>
@@ -244,24 +369,31 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Why Motion Flow: indented editorial column */}
+        {/* Why Motion Flow: four quiet cards */}
         <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
-          <div className="md:pl-[28%]">
-            <Reveal>
-              <h2 className="display text-3xl md:text-4xl">Why Motion Flow</h2>
-            </Reveal>
-            <div className="mt-14 max-w-[520px] space-y-12">
-              {WHY.map((w, i) => (
-                <Reveal key={w.title} delay={i * 0.05}>
-                  <h3 className="text-lg font-medium">{w.title}</h3>
-                  <p className="mt-1.5 text-muted">{w.line}</p>
-                </Reveal>
-              ))}
-            </div>
+          <Reveal>
+            <h2 className="display text-3xl md:text-4xl">Why Motion Flow</h2>
+          </Reveal>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {WHY.map((w, i) => (
+              <Reveal key={w.title} delay={i * 0.06}>
+                <div className="flex h-full flex-col gap-5 rounded-[14px] border border-line bg-panel/60 p-7">
+                  <GlassIcon className="size-11 rounded-xl">
+                    <w.icon size={20} weight="light" />
+                  </GlassIcon>
+                  <div>
+                    <h3 className="text-lg font-medium">{w.title}</h3>
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-muted">
+                      {w.line}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </section>
 
-        {/* Process */}
+        {/* Process: glassy icons, numbered because it is a real sequence */}
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
@@ -270,8 +402,13 @@ export default function Home() {
             <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
               {PROCESS.map((p, i) => (
                 <Reveal key={p.n} delay={i * 0.07}>
-                  <span className="font-mono text-xs text-blue">{p.n}</span>
-                  <h3 className="mt-3 text-lg font-medium">{p.title}</h3>
+                  <GlassIcon>
+                    <p.icon size={22} weight="light" />
+                  </GlassIcon>
+                  <h3 className="mt-5 text-lg font-medium">
+                    <span className="mr-2 font-mono text-xs text-blue">{p.n}</span>
+                    {p.title}
+                  </h3>
                   <p className="mt-2 text-[15px] text-muted">{p.line}</p>
                 </Reveal>
               ))}
@@ -279,36 +416,88 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pricing preview */}
+        {/* Pricing: subscription anchored as best value */}
         <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
-          <Reveal>
-            <h2 className="display text-3xl md:text-4xl">
-              Simple, productized pricing
-            </h2>
-          </Reveal>
-          <div className="mt-16 grid gap-12 sm:grid-cols-3">
-            {[
-              { label: "2D animation", price: "from $2,000" },
-              { label: "3D animation", price: "from $4,000" },
-              { label: "Subscription", price: "$4,995/mo" },
-            ].map((p, i) => (
-              <Reveal key={p.label} delay={i * 0.07}>
-                <p className="text-sm text-muted">{p.label}</p>
-                <p className="display mt-3 text-3xl md:text-4xl">{p.price}</p>
+          <TextReveal
+            as="h2"
+            className="display mx-auto max-w-[30ch] text-center text-[clamp(2rem,4vw,3.2rem)]"
+            lines={["Simple, productized pricing."]}
+          />
+          <div className="mt-16 grid items-stretch gap-6 md:grid-cols-3">
+            {PRICING.map((p, i) => (
+              <Reveal key={p.name} delay={i * 0.07}>
+                <div
+                  className={`relative flex h-full flex-col rounded-[14px] border p-8 ${
+                    p.featured
+                      ? "border-blue/60 bg-panel shadow-[0_0_48px_rgba(169,199,255,0.12)]"
+                      : "border-line bg-panel/50"
+                  }`}
+                >
+                  {p.featured && (
+                    <span className="absolute right-6 top-6 rounded-full border border-blue/60 bg-blue/10 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ice">
+                      Best value
+                    </span>
+                  )}
+                  <p className="text-sm text-muted">{p.name}</p>
+                  <p className="display mt-3 text-4xl">{p.price}</p>
+                  <ul className="mt-8 flex-1 space-y-3.5">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-[15px]">
+                        <Check
+                          size={16}
+                          weight="bold"
+                          className="mt-1 shrink-0 text-blue"
+                        />
+                        <span className={p.featured ? "text-fg" : "text-muted"}>
+                          {f}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  {p.featured && (
+                    <div className="mt-8">
+                      <Button href="/contact" className="w-full">
+                        Book a call
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </Reveal>
             ))}
           </div>
-          <Reveal className="mt-14">
-            <p className="max-w-[54ch] text-muted">
+          <Reveal className="mt-12 text-center">
+            <p className="mx-auto max-w-[58ch] text-muted">
               Every package includes sound design, professional voiceover,
-              three hook variations, and storyboard development.
+              three hook variations, and storyboard development. Custom scope?
+              Book a call for an exact quote.
             </p>
-            <div className="mt-8">
+            <div className="mt-8 flex justify-center">
               <Button href="/services" variant="secondary">
                 See full pricing
               </Button>
             </div>
           </Reveal>
+        </section>
+
+        {/* Testimonials */}
+        <section className="border-t border-line">
+          <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
+            <Reveal>
+              <h2 className="display text-3xl md:text-4xl">What clients say</h2>
+            </Reveal>
+            <div className="mt-14 grid gap-6 md:grid-cols-2">
+              {TESTIMONIALS.map((t, i) => (
+                <Reveal key={t.who} delay={i * 0.08}>
+                  <figure className="flex h-full flex-col justify-between gap-8 rounded-[14px] border border-line bg-panel/60 p-8 md:p-10">
+                    <blockquote className="display text-xl leading-[1.45] md:text-2xl">
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+                    <figcaption className="text-sm text-muted">{t.who}</figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* Final CTA + Calendly */}
