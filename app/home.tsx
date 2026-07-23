@@ -313,7 +313,7 @@ export default function Home() {
         {/* Selected work: asymmetric grid */}
         <section className="mx-auto max-w-[1280px] px-6 pb-36 md:px-10 md:pb-48">
           <Reveal>
-            <h2 className="display text-3xl md:text-4xl">Selected work</h2>
+            <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">Selected work</h2>
           </Reveal>
           <div className="mt-16 grid gap-x-10 gap-y-20 md:grid-cols-12">
             <Reveal className="md:col-span-8">
@@ -341,7 +341,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display max-w-[16ch] text-3xl md:text-4xl">
+              <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">
                 What we make
               </h2>
             </Reveal>
@@ -372,7 +372,7 @@ export default function Home() {
         {/* Why Motion Flow: four quiet cards */}
         <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
           <Reveal>
-            <h2 className="display text-3xl md:text-4xl">Why Motion Flow</h2>
+            <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">Why Motion Flow</h2>
           </Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {WHY.map((w, i) => (
@@ -397,7 +397,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display text-3xl md:text-4xl">How it works</h2>
+              <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">How it works</h2>
             </Reveal>
             <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
               {PROCESS.map((p, i) => (
@@ -483,7 +483,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display text-3xl md:text-4xl">What clients say</h2>
+              <h2 className="display italic pb-1 text-[clamp(2.5rem,5vw,4rem)]">What clients say</h2>
             </Reveal>
             <div className="mt-14 grid gap-6 md:grid-cols-2">
               {TESTIMONIALS.map((t, i) => (

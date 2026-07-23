@@ -1,19 +1,22 @@
 /**
  * Stacked Motion Flow wordmark, sized via the parent font-size (em-based).
- * Approximates the brand logo (condensed caps, MOTION over FLOW) in Anton;
- * swap for the real SVG once the vector file lands.
+ * MOTION: condensed heavy caps (Anton, slightly stretched). FLOW: geometric
+ * extrabold caps (Poppins) with its letters justified across MOTION's exact
+ * width, matching the brand logo's round O and wide W.
  */
 export default function Logo({ className = "" }: { className?: string }) {
   return (
     <span
       aria-label="Motion Flow"
-      className={`inline-flex select-none flex-col items-center leading-none ${className}`}
+      className={`inline-flex w-max select-none flex-col leading-none ${className}`}
     >
-      <span className="font-logo text-[1em] leading-[0.94] tracking-[0.015em]">
+      <span className="origin-bottom scale-y-[1.18] font-logo text-[1em] leading-[0.98] tracking-[0.01em]">
         MOTION
       </span>
-      <span className="-mr-[0.3em] font-logo text-[0.93em] leading-[0.98] tracking-[0.3em]">
-        FLOW
+      <span className="mt-[0.06em] flex w-full items-baseline justify-between font-flow text-[0.565em] font-extrabold leading-none">
+        {["F", "L", "O", "W"].map((c) => (
+          <span key={c}>{c}</span>
+        ))}
       </span>
     </span>
   );
