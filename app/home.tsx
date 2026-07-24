@@ -190,7 +190,7 @@ const TESTIMONIALS = [
 ];
 
 const CALENDLY_URL =
-  "https://calendly.com/systrenskyi/discussing-collaboration-opportunities?background_color=131620&text_color=f5f7fa&primary_color=a9c7ff&hide_gdpr_banner=1";
+  "https://calendly.com/systrenskyi/discussing-collaboration-opportunities?background_color=131620&text_color=f5f7fa&primary_color=a9c7ff&hide_gdpr_banner=1&hide_event_type_details=1";
 
 function ClientMarquee() {
   const row = [...CLIENTS, ...CLIENTS, ...CLIENTS];
@@ -241,7 +241,7 @@ export default function Home() {
                   immediate
                   as="h1"
                   delay={0.12}
-                  className="display mx-auto mt-7 max-w-[1080px] text-[clamp(2.6rem,5vw,4.2rem)] md:whitespace-nowrap"
+                  className="display mx-auto mt-7 max-w-[1080px] text-[clamp(1.5rem,6.2vw,4.2rem)] md:whitespace-nowrap"
                   lines={[
                     "Launch videos that make",
                     <span key="l2">
@@ -253,10 +253,20 @@ export default function Home() {
                   immediate
                   as="p"
                   delay={0.34}
-                  className="mx-auto mt-8 max-w-[46ch] text-lg leading-[1.7] text-muted"
+                  className="mx-auto mt-8 hidden max-w-[46ch] text-lg leading-[1.7] text-muted md:block"
                   lines={[
                     "We turn zero trust, threat detection, and complex",
                     "security products into short, clear videos that convert.",
+                  ]}
+                />
+                <TextReveal
+                  immediate
+                  as="p"
+                  delay={0.34}
+                  className="mx-auto mt-7 text-[15px] leading-[1.65] text-muted md:hidden"
+                  lines={[
+                    "We turn complex security products into",
+                    "short, clear videos that convert.",
                   ]}
                 />
                 <TextReveal
@@ -296,7 +306,7 @@ export default function Home() {
         {/* Selected work: asymmetric grid */}
         <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-44">
           <Reveal>
-            <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">Selected work</h2>
+            <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">Selected work</h2>
           </Reveal>
           <div className="mt-16 grid gap-x-10 gap-y-20 md:grid-cols-12">
             <Reveal className="md:col-span-8">
@@ -324,7 +334,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">
+              <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">
                 What we make
               </h2>
             </Reveal>
@@ -355,7 +365,7 @@ export default function Home() {
         {/* Why Motion Flow: four quiet cards */}
         <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
           <Reveal>
-            <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">Why Motion Flow</h2>
+            <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">Why Motion Flow</h2>
           </Reveal>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {WHY.map((w, i) => (
@@ -380,7 +390,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">How it works</h2>
+              <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">How it works</h2>
             </Reveal>
             <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
               {PROCESS.map((p, i) => (
@@ -403,7 +413,7 @@ export default function Home() {
         <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
           <TextReveal
             as="h2"
-            className="display mx-auto max-w-[30ch] text-center text-[clamp(2rem,4vw,3.2rem)]"
+            className="display mx-auto max-w-[30ch] text-center text-[clamp(1.4rem,6vw,3.2rem)]"
             lines={["Simple, productized pricing."]}
           />
           <div className="mt-16 grid items-stretch gap-6 md:grid-cols-3">
@@ -466,7 +476,7 @@ export default function Home() {
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
-              <h2 className="display italic pb-2 text-[clamp(3rem,6.5vw,5.25rem)]">What clients say</h2>
+              <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">What clients say</h2>
             </Reveal>
             <div className="mt-14 grid gap-6 md:grid-cols-2">
               {TESTIMONIALS.map((t, i) => (
@@ -488,7 +498,7 @@ export default function Home() {
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <TextReveal
               as="h2"
-              className="display max-w-[16ch] text-[clamp(2.2rem,4.5vw,3.6rem)]"
+              className="display max-w-[16ch] text-[clamp(1.7rem,7vw,3.6rem)]"
               lines={["Launching something?", <em key="i">Let&apos;s make it move.</em>]}
             />
             <Reveal delay={0.2}>

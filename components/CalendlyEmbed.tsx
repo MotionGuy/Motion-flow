@@ -8,8 +8,15 @@ const SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
  * Calendly inline embed that survives client-side navigation. The widget
  * script only auto-scans the page on its first load, so embeds mounted after
  * a route change must be initialized explicitly via Calendly.initInlineWidget.
+ * Taller on mobile so the stacked layout fits without inner scrolling.
  */
-export default function CalendlyEmbed({ url }: { url: string }) {
+export default function CalendlyEmbed({
+  url,
+  className = "h-[820px] md:h-[680px]",
+}: {
+  url: string;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -40,5 +47,5 @@ export default function CalendlyEmbed({ url }: { url: string }) {
     return () => script?.removeEventListener("load", init);
   }, [url]);
 
-  return <div ref={ref} style={{ minWidth: "320px", height: "680px" }} />;
+  return <div ref={ref} className={className} style={{ minWidth: "300px" }} />;
 }

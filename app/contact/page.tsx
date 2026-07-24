@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const CALENDLY_URL =
-  "https://calendly.com/systrenskyi/discussing-collaboration-opportunities?background_color=131620&text_color=f5f7fa&primary_color=a9c7ff&hide_gdpr_banner=1";
+  "https://calendly.com/systrenskyi/discussing-collaboration-opportunities?background_color=131620&text_color=f5f7fa&primary_color=a9c7ff&hide_gdpr_banner=1&hide_event_type_details=1";
 
 export default function ContactPage() {
   return (
