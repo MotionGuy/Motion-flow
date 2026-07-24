@@ -61,7 +61,7 @@ export default function Nav() {
         }`}
       >
         <div className="mx-auto flex h-[72px] max-w-[1280px] items-center justify-between px-6 md:px-10">
-          <Link href="/" aria-label="Motion Flow home" className="text-fg">
+          <Link href="/" aria-label="Motion Flow home" className="block text-fg transition-[transform,opacity] duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:scale-[1.05] hover:opacity-85">
             <Logo className="h-10" />
           </Link>
           <div className="flex items-center gap-3">
@@ -98,6 +98,7 @@ export default function Nav() {
               aria-modal="true"
               aria-label="Menu"
               className="fixed inset-y-0 right-0 z-[70] flex w-[min(420px,92vw)] flex-col border-l border-line bg-panel px-10 py-8"
+              onMouseLeave={() => setOpen(false)}
               initial={reduce ? { opacity: 0 } : { x: "100%" }}
               animate={reduce ? { opacity: 1 } : { x: 0 }}
               exit={reduce ? { opacity: 0 } : { x: "100%" }}

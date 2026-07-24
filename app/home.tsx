@@ -507,8 +507,8 @@ export default function Home() {
               </p>
             </Reveal>
             <Reveal delay={0.3} className="mt-12">
-              <div className="max-w-[900px] overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-3">
-                <CalendlyEmbed url={CALENDLY_URL} className="h-[820px] md:h-[700px]" />
+              <div className="mx-auto max-w-[900px] overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-3">
+                <CalendlyEmbed url={CALENDLY_URL} className="h-[760px] md:h-[700px]" />
               </div>
             </Reveal>
           </div>
