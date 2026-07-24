@@ -241,7 +241,7 @@ export default function Home() {
                   immediate
                   as="h1"
                   delay={0.12}
-                  className="display mx-auto mt-7 max-w-[920px] text-[clamp(2.6rem,5.6vw,4.6rem)]"
+                  className="display mx-auto mt-7 max-w-[1080px] text-[clamp(2.6rem,5vw,4.2rem)] md:whitespace-nowrap"
                   lines={[
                     "Launch videos that make",
                     <span key="l2">
