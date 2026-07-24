@@ -133,6 +133,15 @@ body {
   }
 }
 
+@keyframes arrow-light {
+  from {
+    transform: translateX(-3rem);
+  }
+  to {
+    transform: translateX(4.5rem);
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

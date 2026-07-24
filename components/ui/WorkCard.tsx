@@ -15,6 +15,8 @@ type WorkCardProps = {
   /** When real assets exist: poster image + hover-autoplay video */
   posterSrc?: string;
   videoSrc?: string;
+  /** Poster ratio override for composed grids (default 16:9) */
+  aspectClass?: string;
   className?: string;
 };
 
@@ -31,13 +33,14 @@ export default function WorkCard({
   posterStyle,
   posterSrc,
   videoSrc,
+  aspectClass = "aspect-video",
   className = "",
 }: WorkCardProps) {
   const wrapperClass = `group block transition-[transform] duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:-translate-y-1 ${className}`;
 
   const card = (
       <article>
-        <div className="relative aspect-video overflow-hidden rounded-[14px] border border-line bg-panel transition-shadow duration-300 group-hover:shadow-[0_28px_56px_-20px_rgba(0,0,0,0.7),0_0_36px_rgba(169,199,255,0.08)]">
+        <div className={`relative ${aspectClass} overflow-hidden rounded-[14px] border border-line bg-panel transition-shadow duration-300 group-hover:shadow-[0_28px_56px_-20px_rgba(0,0,0,0.7),0_0_36px_rgba(169,199,255,0.08)]`}>
           {posterSrc ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img

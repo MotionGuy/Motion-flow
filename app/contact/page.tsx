@@ -20,7 +20,7 @@ export default function ContactPage() {
         Pick a time below and tell us what you&apos;re launching. Limited
         projects per month.
       </p>
-      <div className="mx-auto mt-14 max-w-[900px] overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-3">
+      <div className="mx-auto mt-14 max-w-[900px]">
         <CalendlyEmbed url={CALENDLY_URL} className="h-[760px] md:h-[700px]" />
       </div>
       <p className="mt-10 text-muted">

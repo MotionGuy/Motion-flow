@@ -161,6 +161,7 @@ export default function WorkGrid() {
               tags={[p.kind, ...p.tags]}
               posterStyle={p.posterStyle}
               videoSrc={`/video/work/${p.slug}.mp4`}
+              href={`/work/${p.slug}`}
             />
           </Reveal>
         ))}

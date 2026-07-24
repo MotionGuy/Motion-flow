@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   Check,
   Crosshair,
@@ -50,6 +50,24 @@ const WORK = [
     posterStyle: {
       background:
         "radial-gradient(60% 80% at 50% 45%, rgba(234,241,255,0.16), transparent 60%), radial-gradient(120% 120% at 80% 110%, rgba(43,60,114,0.7), transparent 70%), #10131c",
+    },
+  },
+  {
+    client: "Short-form pack",
+    outcome: "Cutdowns and hooks built for paid social.",
+    tags: ["Ad", "Short-form"],
+    posterStyle: {
+      background:
+        "repeating-linear-gradient(115deg, rgba(169,199,255,0.07) 0 2px, transparent 2px 28px), radial-gradient(100% 130% at 20% 110%, rgba(108,133,235,0.26), transparent 60%), #10131c",
+    },
+  },
+  {
+    client: "Hyper",
+    outcome: "A 3D brand film for cloud development infrastructure.",
+    tags: ["3D", "Launch"],
+    posterStyle: {
+      background:
+        "radial-gradient(70% 110% at 78% 20%, rgba(169,199,255,0.2), transparent 55%), radial-gradient(120% 140% at 15% 115%, rgba(43,60,114,0.75), transparent 65%), #0e1118",
     },
   },
 ];
@@ -192,6 +210,24 @@ const TESTIMONIALS = [
 const CALENDLY_URL =
   "https://calendly.com/systrenskyi/discussing-collaboration-opportunities?background_color=131620&text_color=f5f7fa&primary_color=a9c7ff&hide_gdpr_banner=1&hide_event_type_details=1";
 
+/** Connector between process steps: a light pulse travels left to right */
+function FlowArrow({ delay }: { delay: number }) {
+  return (
+    <div
+      aria-hidden
+      className="relative hidden w-14 shrink-0 items-center self-stretch lg:flex"
+    >
+      <div className="relative h-px w-full overflow-hidden bg-line">
+        <span
+          className="absolute inset-y-0 w-10 bg-gradient-to-r from-transparent via-blue to-transparent motion-safe:animate-[arrow-light_2.4s_linear_infinite]"
+          style={{ animationDelay: `${delay}s` }}
+        />
+      </div>
+      <span className="absolute right-0.5 size-2 rotate-45 border-r border-t border-line-bright" />
+    </div>
+  );
+}
+
 function ClientMarquee() {
   const row = [...CLIENTS, ...CLIENTS, ...CLIENTS];
   return (
@@ -308,24 +344,43 @@ export default function Home() {
           <Reveal>
             <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">Selected work</h2>
           </Reveal>
-          <div className="mt-16 grid gap-x-10 gap-y-20 md:grid-cols-12">
+          {/* Composed rows a la together.agency: wide + narrow, mirrored, then full-bleed */}
+          <div className="mt-16 grid gap-x-8 gap-y-16 md:grid-cols-12">
             <Reveal className="md:col-span-8">
-              <WorkCard href="/work" {...WORK[0]} />
+              <WorkCard href="/work/wafersight" {...WORK[0]} />
             </Reveal>
-            <Reveal delay={0.1} className="md:col-span-4 md:mt-28">
-              <WorkCard href="/work" {...WORK[1]} />
+            <Reveal delay={0.08} className="md:col-span-4">
+              <WorkCard
+                href="/work/short-form-pack"
+                aspectClass="aspect-video md:aspect-[6/7]"
+                {...WORK[3]}
+              />
             </Reveal>
-            <Reveal className="md:col-span-6 md:col-start-4">
-              <WorkCard href="/work" {...WORK[2]} />
+            <Reveal className="md:col-span-4">
+              <WorkCard
+                href="/work/miggles"
+                aspectClass="aspect-video md:aspect-[6/7]"
+                {...WORK[2]}
+              />
+            </Reveal>
+            <Reveal delay={0.08} className="md:col-span-8">
+              <WorkCard href="/work/orally" {...WORK[1]} />
+            </Reveal>
+            <Reveal className="md:col-span-12">
+              <WorkCard
+                href="/work/hyper"
+                aspectClass="aspect-video md:aspect-[21/9]"
+                {...WORK[4]}
+              />
             </Reveal>
           </div>
           <Reveal className="mt-20 flex flex-wrap items-center justify-between gap-6">
             <span className="inline-flex items-center gap-2.5 text-sm text-muted">
               <span className="size-1.5 rounded-full bg-blue" />
-              Cybersecurity pieces in production. New work landing soon.
+              More cybersecurity videos are in production.
             </span>
             <Button href="/work" variant="secondary">
-              See more work
+              See all of our videos
             </Button>
           </Reveal>
         </section>
@@ -363,7 +418,8 @@ export default function Home() {
         </section>
 
         {/* Why Motion Flow: four quiet cards */}
-        <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
+        <section className="border-t border-line">
+          <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
           <Reveal>
             <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">Why Motion Flow</h2>
           </Reveal>
@@ -384,6 +440,7 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+          </div>
         </section>
 
         {/* Process: glassy icons, numbered because it is a real sequence */}
@@ -392,25 +449,31 @@ export default function Home() {
             <Reveal>
               <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">How it works</h2>
             </Reveal>
-            <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-16 flex flex-col gap-6 lg:flex-row lg:items-stretch">
               {PROCESS.map((p, i) => (
-                <Reveal key={p.n} delay={i * 0.07}>
-                  <GlassIcon>
-                    <p.icon size={22} weight="light" />
-                  </GlassIcon>
-                  <h3 className="mt-5 text-lg font-medium">
-                    <span className="mr-2 font-mono text-xs text-blue">{p.n}</span>
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-[15px] text-muted">{p.line}</p>
-                </Reveal>
+                <Fragment key={p.n}>
+                  <Reveal delay={i * 0.07} className="flex-1">
+                    <div className="flex h-full flex-col rounded-[14px] border border-line bg-panel/60 p-7">
+                      <GlassIcon>
+                        <p.icon size={22} weight="light" />
+                      </GlassIcon>
+                      <h3 className="mt-5 text-lg font-medium">
+                        <span className="mr-2 font-mono text-xs text-blue">{p.n}</span>
+                        {p.title}
+                      </h3>
+                      <p className="mt-2 text-[15px] text-muted">{p.line}</p>
+                    </div>
+                  </Reveal>
+                  {i < PROCESS.length - 1 && <FlowArrow delay={i * 0.8} />}
+                </Fragment>
               ))}
             </div>
           </div>
         </section>
 
         {/* Pricing: subscription anchored as best value */}
-        <section className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
+        <section className="border-t border-line">
+          <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
           <TextReveal
             as="h2"
             className="display mx-auto max-w-[30ch] text-center text-[clamp(1.4rem,6vw,3.2rem)]"
@@ -470,6 +533,7 @@ export default function Home() {
               </Button>
             </div>
           </Reveal>
+          </div>
         </section>
 
         {/* Testimonials */}
@@ -498,16 +562,16 @@ export default function Home() {
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <TextReveal
               as="h2"
-              className="display max-w-[16ch] text-[clamp(1.7rem,7vw,3.6rem)]"
+              className="display mx-auto max-w-[16ch] text-center text-[clamp(1.7rem,7vw,3.6rem)]"
               lines={["Launching something?", <em key="i">Let&apos;s make it move.</em>]}
             />
             <Reveal delay={0.2}>
-              <p className="mt-6 text-muted">
+              <p className="mt-6 text-center text-muted">
                 Pick a time below. Limited projects per month.
               </p>
             </Reveal>
             <Reveal delay={0.3} className="mt-12">
-              <div className="mx-auto max-w-[900px] overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-3">
+              <div className="mx-auto max-w-[900px]">
                 <CalendlyEmbed url={CALENDLY_URL} className="h-[760px] md:h-[700px]" />
               </div>
             </Reveal>
