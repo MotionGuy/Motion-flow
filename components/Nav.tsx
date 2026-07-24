@@ -73,6 +73,7 @@ export default function Nav() {
               aria-label="Open menu"
               aria-expanded={open}
               onClick={() => setOpen(true)}
+              onMouseEnter={() => setOpen(true)}
               className="inline-flex size-[46px] items-center justify-center rounded-full border border-line text-fg transition-colors duration-200 hover:border-line-bright hover:bg-white/[0.04]"
             >
               <List size={20} weight="light" />
@@ -89,7 +90,7 @@ export default function Nav() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.55, ease: "easeInOut" }}
               onClick={() => setOpen(false)}
             />
             <motion.aside
@@ -100,7 +101,8 @@ export default function Nav() {
               initial={reduce ? { opacity: 0 } : { x: "100%" }}
               animate={reduce ? { opacity: 1 } : { x: 0 }}
               exit={reduce ? { opacity: 0 } : { x: "100%" }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              /* Slow-fast-slow: eases in gently, sweeps the middle, settles softly */
+              transition={{ duration: 0.85, ease: [0.83, 0, 0.17, 1] }}
             >
               <div className="flex items-center justify-between">
                 <span className="eyebrow">Menu</span>
@@ -123,7 +125,7 @@ export default function Nav() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
                       duration: 0.5,
-                      delay: 0.1 + i * 0.06,
+                      delay: 0.35 + i * 0.07,
                       ease: [0.16, 1, 0.3, 1],
                     }}
                   >
