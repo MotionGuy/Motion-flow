@@ -130,9 +130,16 @@ export default function Nav() {
                     <Link
                       href={l.href}
                       onClick={() => setOpen(false)}
-                      className="display block text-4xl text-fg transition-colors duration-300 hover:text-blue"
+                      className="group flex items-center gap-4"
                     >
-                      {l.label}
+                      {/* Dash draws in from the left on hover */}
+                      <span
+                        aria-hidden
+                        className="h-px w-7 origin-left scale-x-0 bg-blue transition-transform duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:group-hover:scale-x-100"
+                      />
+                      <span className="display text-4xl text-fg transition-colors duration-300 group-hover:text-blue">
+                        {l.label}
+                      </span>
                     </Link>
                   </motion.span>
                 ))}

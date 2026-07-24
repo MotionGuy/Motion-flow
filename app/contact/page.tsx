@@ -20,8 +20,8 @@ export default function ContactPage() {
         Pick a time below and tell us what you&apos;re launching. Limited
         projects per month.
       </p>
-      <div className="mt-14 overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-4">
-        <CalendlyEmbed url={CALENDLY_URL} />
+      <div className="mt-14 max-w-[900px] overflow-hidden rounded-[14px] border border-line bg-panel p-2 md:p-3">
+        <CalendlyEmbed url={CALENDLY_URL} className="h-[820px] md:h-[700px]" />
       </div>
       <p className="mt-10 text-muted">
         Prefer email?{" "}
