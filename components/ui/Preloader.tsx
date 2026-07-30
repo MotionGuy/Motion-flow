@@ -32,7 +32,6 @@ export default function Preloader({ onComplete, contained }: PreloaderProps) {
 
   useEffect(() => {
     if (reduce) {
-      setVisible(false);
       onComplete?.();
       return;
     }
@@ -52,6 +51,8 @@ export default function Preloader({ onComplete, contained }: PreloaderProps) {
       window.clearTimeout(t);
     };
   }, [reduce, onComplete]);
+
+  if (reduce) return null;
 
   return (
     <AnimatePresence>

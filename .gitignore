@@ -20,6 +20,9 @@
 # production
 /build
 
+# Original full-length portfolio masters stay out of GitHub.
+/public/video/full/
+
 # misc
 .DS_Store
 *.pem
