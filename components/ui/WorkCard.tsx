@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import type { CSSProperties } from "react";
 import Tag from "./Tag";
 
@@ -10,6 +11,7 @@ type WorkCardProps = {
   tags: string[];
   /** Omit while case-study pages don't exist yet; card renders unlinked */
   href?: string;
+  onOpen?: () => void;
   /** Poster background while real video assets land: a bespoke gradient per client */
   posterStyle?: CSSProperties;
   /** When real assets exist: poster image + hover-autoplay video */
@@ -21,22 +23,42 @@ type WorkCardProps = {
 };
 
 /**
- * Work card: whole card clickable, lifts on hover with a blue-tinted shadow.
- * The thumbnail autoplays muted ON HOVER ONLY (performance rule); a subtle
- * scan line stands in for the playing state until real assets land.
+ * Work card: previews autoplay silently so the grid feels alive. Hovering a
+ * card enlarges it and attempts to enable its soundtrack; browsers may still
+ * require an earlier user gesture before allowing audio.
  */
 export default function WorkCard({
   client,
   outcome,
   tags,
   href,
+  onOpen,
   posterStyle,
   posterSrc,
   videoSrc,
   aspectClass = "aspect-video",
   className = "",
 }: WorkCardProps) {
-  const wrapperClass = `group block transition-[transform] duration-300 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:-translate-y-1 ${className}`;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const wrapperClass = `group relative block transform-gpu transition-[transform,filter] duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${className}`;
+
+  const playWithSound = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    video.play().catch(() => {
+      // Autoplay policies can reject sound until the visitor clicks once.
+      video.muted = true;
+      video.play().catch(() => {});
+    });
+  };
+
+  const keepPlayingMuted = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  };
 
   const card = (
       <article>
@@ -58,14 +80,19 @@ export default function WorkCard({
           )}
           {videoSrc && (
             <video
-              className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              ref={videoRef}
+              className="absolute inset-0 size-full object-cover opacity-100 transform-gpu transition-transform duration-700 [transition-timing-function:var(--ease-out-expo)] motion-safe:group-hover:scale-[1.06]"
               src={videoSrc}
+              autoPlay
               muted
               loop
               playsInline
-              preload="none"
-              onMouseEnter={(e) => e.currentTarget.play().catch(() => {})}
-              onMouseLeave={(e) => e.currentTarget.pause()}
+              preload="auto"
+              onLoadedData={keepPlayingMuted}
+              onPointerEnter={playWithSound}
+              onPointerLeave={keepPlayingMuted}
+              onFocus={playWithSound}
+              onBlur={keepPlayingMuted}
             />
           )}
           {/* Scan line: quiet stand-in for the hover-playing state */}
@@ -85,6 +112,14 @@ export default function WorkCard({
         </div>
       </article>
   );
+
+  if (onOpen) {
+    return (
+      <button type="button" className={`${wrapperClass} text-left`} onClick={onOpen}>
+        {card}
+      </button>
+    );
+  }
 
   if (href) {
     return (
