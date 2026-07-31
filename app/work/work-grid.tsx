@@ -273,7 +273,6 @@ export default function WorkGrid() {
                   src={`${R2_VIDEO_BASE_URL}/${selected.slug}.mp4`}
                   autoPlay
                   muted
-                  defaultMuted
                   controls
                   playsInline
                   preload="auto"
