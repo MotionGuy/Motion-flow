@@ -3,14 +3,10 @@
 import { Fragment, useState } from "react";
 import {
   Check,
-  Crosshair,
-  Diamond,
-  Eye,
   FilmSlate,
   NotePencil,
   PaperPlaneTilt,
   Sparkle,
-  UserCircle,
 } from "@phosphor-icons/react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -124,29 +120,6 @@ const SERVICES = [
     span: "md:col-span-7",
     media:
       "radial-gradient(120% 150% at 50% 120%, rgba(43,60,114,0.75), transparent 65%), linear-gradient(140deg, #0e1118, #121a30)",
-  },
-];
-
-const WHY = [
-  {
-    icon: Crosshair,
-    title: "Cyber-only focus",
-    line: "We speak SOC, zero trust, XDR, and identity. No glossary needed.",
-  },
-  {
-    icon: Eye,
-    title: "Clarity over clichés",
-    line: "No hooded hackers, no padlocks. We visualize your actual architecture.",
-  },
-  {
-    icon: Diamond,
-    title: "Launch-grade craft",
-    line: "Built for RSAC moments, product launches, and paid social.",
-  },
-  {
-    icon: UserCircle,
-    title: "Founder-led",
-    line: "You talk to the person who makes the work.",
   },
 ];
 
@@ -426,32 +399,6 @@ export default function Home() {
                 See full pricing
               </Button>
             </Reveal>
-          </div>
-        </section>
-
-        {/* Why Motion Flow: four quiet cards */}
-        <section className="border-t border-line">
-          <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
-          <Reveal>
-            <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">Why Motion Flow</h2>
-          </Reveal>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {WHY.map((w, i) => (
-              <Reveal key={w.title} delay={i * 0.06}>
-                <div className="flex h-full flex-col gap-5 rounded-[14px] border border-line bg-panel/60 p-7">
-                  <GlassIcon className="size-11 rounded-xl">
-                    <w.icon size={20} weight="light" />
-                  </GlassIcon>
-                  <div>
-                    <h3 className="text-lg font-medium">{w.title}</h3>
-                    <p className="mt-1.5 text-[15px] leading-relaxed text-muted">
-                      {w.line}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
           </div>
         </section>
 
