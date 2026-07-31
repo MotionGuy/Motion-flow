@@ -362,29 +362,23 @@ export default function Home() {
             <h2 className="display italic pb-2 text-[clamp(2.1rem,9vw,5.25rem)]">Selected work</h2>
           </Reveal>
           {/* Composed rows a la together.agency: wide + narrow, mirrored, then full-bleed */}
-          <div className="mt-16 grid gap-x-8 gap-y-16 md:grid-cols-12">
-            <Reveal className="md:col-span-8">
-              <WorkCard {...WORK[0]} videoSrc={`/video/work/${WORK[0].slug}.mp4`} onOpen={() => setSelectedWork(WORK[0])} />
-            </Reveal>
-            <Reveal delay={0.08} className="md:col-span-4">
-              <WorkCard
-                aspectClass="aspect-video md:aspect-[6/7]"
-                {...WORK[3]}
-                videoSrc={`/video/work/${WORK[3].slug}.mp4`}
-                onOpen={() => setSelectedWork(WORK[3])}
-              />
-            </Reveal>
-            <Reveal className="md:col-span-4">
-              <WorkCard
-                aspectClass="aspect-video md:aspect-[6/7]"
-                {...WORK[2]}
-                videoSrc={`/video/work/${WORK[2].slug}.mp4`}
-                onOpen={() => setSelectedWork(WORK[2])}
-              />
-            </Reveal>
-            <Reveal delay={0.08} className="md:col-span-8">
-              <WorkCard {...WORK[1]} videoSrc={`/video/work/${WORK[1].slug}.mp4`} onOpen={() => setSelectedWork(WORK[1])} />
-            </Reveal>
+          <div className="mt-16 grid gap-8 md:grid-cols-12 md:items-start">
+            <div className="space-y-16 md:col-span-8">
+              <Reveal>
+                <WorkCard {...WORK[0]} videoSrc={`/video/work/${WORK[0].slug}.mp4`} onOpen={() => setSelectedWork(WORK[0])} />
+              </Reveal>
+              <Reveal delay={0.08}>
+                <WorkCard {...WORK[1]} videoSrc={`/video/work/${WORK[1].slug}.mp4`} onOpen={() => setSelectedWork(WORK[1])} />
+              </Reveal>
+            </div>
+            <div className="space-y-16 md:col-span-4">
+              <Reveal delay={0.08}>
+                <WorkCard aspectClass="aspect-video md:aspect-[6/7]" {...WORK[3]} videoSrc={`/video/work/${WORK[3].slug}.mp4`} onOpen={() => setSelectedWork(WORK[3])} />
+              </Reveal>
+              <Reveal>
+                <WorkCard aspectClass="aspect-video md:aspect-[6/7]" {...WORK[2]} videoSrc={`/video/work/${WORK[2].slug}.mp4`} onOpen={() => setSelectedWork(WORK[2])} />
+              </Reveal>
+            </div>
             <Reveal className="md:col-span-12">
               <WorkCard
                 aspectClass="aspect-video md:aspect-[21/9]"
