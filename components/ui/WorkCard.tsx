@@ -24,8 +24,7 @@ type WorkCardProps = {
 
 /**
  * Work card: previews autoplay silently so the grid feels alive. Hovering a
- * card enlarges it and attempts to enable its soundtrack; browsers may still
- * require an earlier user gesture before allowing audio.
+ * card enlarges it, while sound is available only in the opened video player.
  */
 export default function WorkCard({
   client,
@@ -41,17 +40,6 @@ export default function WorkCard({
 }: WorkCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapperClass = `group relative block transform-gpu transition-[transform,filter] duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${className}`;
-
-  const playWithSound = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = false;
-    video.play().catch(() => {
-      // Autoplay policies can reject sound until the visitor clicks once.
-      video.muted = true;
-      video.play().catch(() => {});
-    });
-  };
 
   const keepPlayingMuted = () => {
     const video = videoRef.current;
@@ -89,9 +77,7 @@ export default function WorkCard({
               playsInline
               preload="auto"
               onLoadedData={keepPlayingMuted}
-              onPointerEnter={playWithSound}
               onPointerLeave={keepPlayingMuted}
-              onFocus={playWithSound}
               onBlur={keepPlayingMuted}
             />
           )}
