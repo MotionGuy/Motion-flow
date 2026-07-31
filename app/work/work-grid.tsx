@@ -276,9 +276,6 @@ export default function WorkGrid() {
                   controls
                   playsInline
                   preload="auto"
-                  onPointerDown={(event) => {
-                    event.currentTarget.muted = false;
-                  }}
                 />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 text-xs uppercase tracking-[0.18em] text-white/70">
                   {selected.kind} · {selected.tags[0]}
