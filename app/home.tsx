@@ -395,7 +395,7 @@ export default function Home() {
               ))}
             </div>
             <Reveal className="mt-14">
-              <Button href="/services" variant="secondary">
+              <Button href="/pricing" variant="secondary">
                 See full pricing
               </Button>
             </Reveal>
@@ -487,7 +487,7 @@ export default function Home() {
               Book a call for an exact quote.
             </p>
             <div className="mt-8 flex justify-center">
-              <Button href="/services" variant="secondary">
+              <Button href="/pricing" variant="secondary">
                 See full pricing
               </Button>
             </div>
