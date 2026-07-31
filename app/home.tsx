@@ -22,6 +22,7 @@ import LiquidBackground from "@/components/ui/LiquidBackground";
 import TextReveal from "@/components/ui/TextReveal";
 import Reveal from "@/components/ui/Reveal";
 import WorkCard from "@/components/ui/WorkCard";
+import CaseStudyModal from "@/components/ui/CaseStudyModal";
 
 /* Featured work; poster gradients stand in until real video assets land. */
 const WORK = [
@@ -29,6 +30,9 @@ const WORK = [
     client: "Wafersight",
     outcome: "A dense semiconductor data platform, made clear in 60 seconds.",
     tags: ["Explainer", "2D", "Deep Tech"],
+    slug: "wafersight",
+    kind: "2D",
+    caseStudy: { challenge: "Turn dense semiconductor data into a story a buyer can understand quickly.", approach: "A crisp 2D explainer that maps the product journey from signal to decision.", result: "A launch-ready film for the homepage, sales conversations and technical demos." },
     posterStyle: {
       background:
         "radial-gradient(120% 140% at 80% 0%, rgba(108,133,235,0.3), transparent 55%), repeating-radial-gradient(circle at 25% 130%, rgba(155,161,173,0.09) 0 1px, transparent 1px 26px), linear-gradient(160deg, #131620 0%, #0e1118 55%, #121a30 100%)",
@@ -38,6 +42,9 @@ const WORK = [
     client: "Orally",
     outcome: "A blockchain protocol explained simply enough to convert.",
     tags: ["Explainer", "Blockchain"],
+    slug: "orally",
+    kind: "2D",
+    caseStudy: { challenge: "Make a complex blockchain protocol feel clear and approachable.", approach: "A concise visual narrative that translates infrastructure into human outcomes.", result: "A product story that can introduce the platform before a sales conversation starts." },
     posterStyle: {
       background:
         "linear-gradient(115deg, #10131c 40%, rgba(169,199,255,0.12) 70%, #10131c 95%), radial-gradient(90% 120% at 15% 100%, rgba(108,133,235,0.22), transparent 60%), #131620",
@@ -47,15 +54,21 @@ const WORK = [
     client: "Miggles",
     outcome: "A 3D launch film for a coin launch and infrastructure update.",
     tags: ["Launch", "3D", "Web3"],
+    slug: "miggles",
+    kind: "3D",
+    caseStudy: { challenge: "Create a high-energy 3D film for a coin launch and infrastructure update.", approach: "Glossy materials, rhythmic motion and a strong central object build momentum.", result: "A memorable launch asset for social, community and announcement moments." },
     posterStyle: {
       background:
         "radial-gradient(60% 80% at 50% 45%, rgba(234,241,255,0.16), transparent 60%), radial-gradient(120% 120% at 80% 110%, rgba(43,60,114,0.7), transparent 70%), #10131c",
     },
   },
   {
-    client: "Short-form pack",
-    outcome: "Cutdowns and hooks built for paid social.",
-    tags: ["Ad", "Short-form"],
+    client: "ToolTip",
+    outcome: "A SaaS product explainer, tight enough for paid social.",
+    tags: ["Explainer", "SaaS"],
+    slug: "tooltip",
+    kind: "2D",
+    caseStudy: { challenge: "Explain a SaaS product fast enough for paid social.", approach: "Tight 2D pacing and clear visual beats keep the message focused.", result: "A short-form-ready explainer built to earn attention quickly." },
     posterStyle: {
       background:
         "repeating-linear-gradient(115deg, rgba(169,199,255,0.07) 0 2px, transparent 2px 28px), radial-gradient(100% 130% at 20% 110%, rgba(108,133,235,0.26), transparent 60%), #10131c",
@@ -65,6 +78,9 @@ const WORK = [
     client: "Hyper",
     outcome: "A 3D brand film for cloud development infrastructure.",
     tags: ["3D", "Launch"],
+    slug: "hyper",
+    kind: "3D",
+    caseStudy: { challenge: "Give cloud development infrastructure a visual identity with technical depth.", approach: "A 3D brand film using scale, light and movement to make infrastructure feel tangible.", result: "A hero film that gives a technical product a distinctive launch presence." },
     posterStyle: {
       background:
         "radial-gradient(70% 110% at 78% 20%, rgba(169,199,255,0.2), transparent 55%), radial-gradient(120% 140% at 15% 115%, rgba(43,60,114,0.75), transparent 65%), #0e1118",
@@ -252,6 +268,7 @@ function ClientMarquee() {
 
 export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
+  const [selectedWork, setSelectedWork] = useState<(typeof WORK)[number] | null>(null);
 
   return (
     <div className="min-h-[100dvh]">
@@ -347,30 +364,33 @@ export default function Home() {
           {/* Composed rows a la together.agency: wide + narrow, mirrored, then full-bleed */}
           <div className="mt-16 grid gap-x-8 gap-y-16 md:grid-cols-12">
             <Reveal className="md:col-span-8">
-              <WorkCard href="/work/wafersight" {...WORK[0]} />
+              <WorkCard {...WORK[0]} videoSrc={`/video/work/${WORK[0].slug}.mp4`} onOpen={() => setSelectedWork(WORK[0])} />
             </Reveal>
             <Reveal delay={0.08} className="md:col-span-4">
               <WorkCard
-                href="/work/short-form-pack"
                 aspectClass="aspect-video md:aspect-[6/7]"
                 {...WORK[3]}
+                videoSrc={`/video/work/${WORK[3].slug}.mp4`}
+                onOpen={() => setSelectedWork(WORK[3])}
               />
             </Reveal>
             <Reveal className="md:col-span-4">
               <WorkCard
-                href="/work/miggles"
                 aspectClass="aspect-video md:aspect-[6/7]"
                 {...WORK[2]}
+                videoSrc={`/video/work/${WORK[2].slug}.mp4`}
+                onOpen={() => setSelectedWork(WORK[2])}
               />
             </Reveal>
             <Reveal delay={0.08} className="md:col-span-8">
-              <WorkCard href="/work/orally" {...WORK[1]} />
+              <WorkCard {...WORK[1]} videoSrc={`/video/work/${WORK[1].slug}.mp4`} onOpen={() => setSelectedWork(WORK[1])} />
             </Reveal>
             <Reveal className="md:col-span-12">
               <WorkCard
-                href="/work/hyper"
                 aspectClass="aspect-video md:aspect-[21/9]"
                 {...WORK[4]}
+                videoSrc={`/video/work/${WORK[4].slug}.mp4`}
+                onOpen={() => setSelectedWork(WORK[4])}
               />
             </Reveal>
           </div>
@@ -580,6 +600,17 @@ export default function Home() {
       </main>
 
       <Footer />
+      {selectedWork && (
+        <CaseStudyModal
+          title={selectedWork.client}
+          line={selectedWork.outcome}
+          kind={selectedWork.kind}
+          tags={selectedWork.tags}
+          slug={selectedWork.slug}
+          copy={selectedWork.caseStudy}
+          onClose={() => setSelectedWork(null)}
+        />
+      )}
     </div>
   );
 }
