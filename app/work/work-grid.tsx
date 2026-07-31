@@ -73,6 +73,8 @@ const CASE_STUDY_COPY: Record<string, { challenge: string; approach: string; res
   },
 };
 
+const R2_VIDEO_BASE_URL = "https://pub-9ff429d084548f5b38c2273dbfe2921.r2.dev";
+
 /* Sourced from the studio Drive (2d animations / 3d animations folders).
    Outcome lines are working copy; Denys refines per piece. */
 const PIECES: Piece[] = [
@@ -268,7 +270,7 @@ export default function WorkGrid() {
               >
                 <video
                   className="h-auto max-h-[70vh] max-w-full object-contain"
-                  src={`/video/full/${selected.slug}.mp4`}
+                  src={`${R2_VIDEO_BASE_URL}/${selected.slug}.mp4`}
                   autoPlay
                   controls
                   playsInline
