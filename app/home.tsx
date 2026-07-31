@@ -90,6 +90,11 @@ const WORK = [
 
 const CLIENTS = ["Orally", "Wafersight", "Miggles", "Hyper"];
 
+const homePreviewSrc = (slug: string) =>
+  ["wafersight", "hyper"].includes(slug)
+    ? `/video/home/${slug}.mp4`
+    : `/video/work/${slug}.mp4`;
+
 /* Media zones are gradient stand-ins; drop stills or muted loops in later. */
 const SERVICES = [
   {
@@ -363,12 +368,12 @@ export default function Home() {
           </Reveal>
           <div className="mt-16 space-y-12 md:space-y-16">
             <Reveal>
-              <WorkCard {...WORK[0]} videoSrc={`/video/work/${WORK[0].slug}.mp4`} onOpen={() => setSelectedWork(WORK[0])} />
+              <WorkCard {...WORK[0]} videoSrc={homePreviewSrc(WORK[0].slug)} onOpen={() => setSelectedWork(WORK[0])} />
             </Reveal>
             <div className="grid gap-8 md:grid-cols-3">
               {[WORK[3], WORK[2], WORK[1]].map((work, index) => (
                 <Reveal key={work.slug} delay={index * 0.07}>
-                  <WorkCard {...work} videoSrc={`/video/work/${work.slug}.mp4`} onOpen={() => setSelectedWork(work)} />
+                  <WorkCard {...work} videoSrc={homePreviewSrc(work.slug)} onOpen={() => setSelectedWork(work)} />
                 </Reveal>
               ))}
             </div>
@@ -376,7 +381,7 @@ export default function Home() {
               <WorkCard
                 aspectClass="aspect-video md:aspect-[21/9]"
                 {...WORK[4]}
-                videoSrc={`/video/work/${WORK[4].slug}.mp4`}
+                videoSrc={homePreviewSrc(WORK[4].slug)}
                 onOpen={() => setSelectedWork(WORK[4])}
               />
             </Reveal>
