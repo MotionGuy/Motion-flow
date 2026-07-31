@@ -39,7 +39,7 @@ export default function WorkCard({
   className = "",
 }: WorkCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const wrapperClass = `group relative block transform-gpu transition-[transform,filter] duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${className}`;
+  const wrapperClass = `group relative block w-full transform-gpu transition-[transform,filter] duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${className}`;
 
   const keepPlayingMuted = () => {
     const video = videoRef.current;
