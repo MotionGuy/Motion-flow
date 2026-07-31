@@ -353,7 +353,7 @@ export default function Home() {
           </Reveal>
           <div className="mt-16 space-y-12 md:space-y-16">
             <Reveal>
-              <WorkCard {...WORK[0]} videoSrc={homePreviewSrc(WORK[0].slug)} onOpen={() => setSelectedWork(WORK[0])} />
+              <WorkCard className="mx-auto max-w-[1120px]" {...WORK[0]} videoSrc={homePreviewSrc(WORK[0].slug)} onOpen={() => setSelectedWork(WORK[0])} />
             </Reveal>
             <div className="grid gap-8 md:grid-cols-2">
               {[WORK[4], WORK[3], WORK[2], WORK[5]].map((work, index) => (
@@ -364,6 +364,7 @@ export default function Home() {
             </div>
             <Reveal>
               <WorkCard
+                className="mx-auto max-w-[1120px]"
                 {...WORK[1]}
                 videoSrc={homePreviewSrc(WORK[1].slug)}
                 onOpen={() => setSelectedWork(WORK[1])}
