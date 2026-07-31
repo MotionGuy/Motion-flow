@@ -272,9 +272,15 @@ export default function WorkGrid() {
                   className="h-auto max-h-[70vh] max-w-full object-contain"
                   src={`${R2_VIDEO_BASE_URL}/${selected.slug}.mp4`}
                   autoPlay
+                  muted
                   controls
                   playsInline
                   preload="auto"
+                  onLoadedData={(event) => {
+                    const video = event.currentTarget;
+                    video.muted = true;
+                    void video.play().catch(() => {});
+                  }}
                 />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 text-xs uppercase tracking-[0.18em] text-white/70">
                   {selected.kind} · {selected.tags[0]}
