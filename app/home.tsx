@@ -23,6 +23,18 @@ import CaseStudyModal from "@/components/ui/CaseStudyModal";
 /* Featured work; poster gradients stand in until real video assets land. */
 const WORK = [
   {
+    client: "Oogubi",
+    outcome: "A cinematic 3D brand film built around a distinctive visual system.",
+    tags: ["3D", "Brand film", "Technology"],
+    slug: "oogubi",
+    kind: "3D",
+    caseStudy: { challenge: "Create a distinctive visual world for a technology brand with a complex story.", approach: "Particle-led 3D motion and a cinematic pace turn the brand system into a memorable film.", result: "A high-impact brand piece built to introduce Oogubi across launch and digital touchpoints." },
+    posterStyle: {
+      background:
+        "radial-gradient(70% 120% at 50% 55%, rgba(169,199,255,0.12), transparent 58%), linear-gradient(145deg, #0e1118, #131620)",
+    },
+  },
+  {
     client: "Wafersight",
     outcome: "A dense semiconductor data platform, made clear in 60 seconds.",
     tags: ["Explainer", "2D", "Deep Tech"],
@@ -343,8 +355,8 @@ export default function Home() {
             <Reveal>
               <WorkCard {...WORK[0]} videoSrc={homePreviewSrc(WORK[0].slug)} onOpen={() => setSelectedWork(WORK[0])} />
             </Reveal>
-            <div className="grid gap-8 md:grid-cols-3">
-              {[WORK[3], WORK[2], WORK[1]].map((work, index) => (
+            <div className="grid gap-8 md:grid-cols-2">
+              {[WORK[4], WORK[3], WORK[2], WORK[5]].map((work, index) => (
                 <Reveal key={work.slug} delay={index * 0.07}>
                   <WorkCard {...work} videoSrc={homePreviewSrc(work.slug)} onOpen={() => setSelectedWork(work)} />
                 </Reveal>
@@ -352,10 +364,9 @@ export default function Home() {
             </div>
             <Reveal>
               <WorkCard
-                aspectClass="aspect-video md:aspect-[21/9]"
-                {...WORK[4]}
-                videoSrc={homePreviewSrc(WORK[4].slug)}
-                onOpen={() => setSelectedWork(WORK[4])}
+                {...WORK[1]}
+                videoSrc={homePreviewSrc(WORK[1].slug)}
+                onOpen={() => setSelectedWork(WORK[1])}
               />
             </Reveal>
           </div>
