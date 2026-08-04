@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -16,9 +16,9 @@ type CaseStudyModalProps = {
 
 const R2_VIDEO_BASE_URL = "https://pub-9ff429d0848548f5b38c2273dbfe2921.r2.dev";
 
-function NextSection({ label }: { label: string }) {
+function NextSection({ label, nextStep }: { label: string; nextStep: number }) {
   return (
-    <div className="flex h-20 shrink-0 snap-start snap-always items-center justify-between gap-5 border-t border-line px-6 sm:px-9">
+    <div data-case-study-step={nextStep} className="flex h-20 shrink-0 snap-start snap-always items-center justify-between gap-5 border-t border-line px-6 sm:px-9">
       <span className="font-mono text-xs uppercase tracking-[0.16em] text-fg/85">{label}</span>
       <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-muted">
         <ArrowDown size={15} weight="light" />
@@ -41,6 +41,9 @@ function ScrollDescription({ text, active, className }: { text: string; active: 
 }
 
 export default function CaseStudyModal({ title, line, kind, tags, slug, copy, onClose }: CaseStudyModalProps) {
+  const scrollPanelRef = useRef<HTMLElement | null>(null);
+  const [activeStep, setActiveStep] = useState(0);
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -52,6 +55,28 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
       document.body.style.overflow = "";
     };
   }, [onClose]);
+
+  useEffect(() => {
+    const panel = scrollPanelRef.current;
+    if (!panel) return;
+
+    const updateActiveStep = () => {
+      const panelTop = panel.getBoundingClientRect().top;
+      let nextStep = 0;
+
+      panel.querySelectorAll<HTMLElement>("[data-case-study-step]").forEach((prompt) => {
+        if (prompt.getBoundingClientRect().top <= panelTop + 12) {
+          nextStep = Number(prompt.dataset.caseStudyStep);
+        }
+      });
+
+      setActiveStep((currentStep) => (currentStep === nextStep ? currentStep : nextStep));
+    };
+
+    updateActiveStep();
+    panel.addEventListener("scroll", updateActiveStep, { passive: true });
+    return () => panel.removeEventListener("scroll", updateActiveStep);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -103,6 +128,7 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
           </motion.div>
 
           <motion.aside
+            ref={scrollPanelRef}
             className="relative z-0 min-w-0 overflow-x-hidden overflow-y-auto scroll-smooth snap-y snap-mandatory bg-transparent lg:h-full"
             initial={{ x: -180, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -123,21 +149,21 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
                 <ScrollDescription text={line} active={activeStep === 0} className="mt-7 max-w-[32ch] text-lg leading-8 text-fg/80" />
               </motion.div>
               <div className="mt-auto">
-                <NextSection label="What was the challenge?" />
+                <NextSection label="What was the challenge?" nextStep={1} />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
               <ScrollDescription text={copy.challenge} active={activeStep === 1} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
               <div className="mt-auto">
-                <NextSection label="Our approach" />
+                <NextSection label="Our approach" nextStep={2} />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
               <ScrollDescription text={copy.approach} active={activeStep === 2} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
               <div className="mt-auto">
-                <NextSection label="Result" />
+                <NextSection label="Result" nextStep={3} />
               </div>
             </section>
 
