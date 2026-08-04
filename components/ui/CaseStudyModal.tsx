@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { ArrowDown } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -16,9 +16,9 @@ type CaseStudyModalProps = {
 
 const R2_VIDEO_BASE_URL = "https://pub-9ff429d0848548f5b38c2273dbfe2921.r2.dev";
 
-function NextSection({ label, nextStep }: { label: string; nextStep: number }) {
+function NextSection({ label }: { label: string }) {
   return (
-    <div data-case-study-step={nextStep} className="flex h-20 shrink-0 snap-start snap-always items-center justify-between gap-5 border-t border-line px-6 sm:px-9">
+    <div className="flex h-20 shrink-0 snap-start snap-always items-center justify-between gap-5 border-t border-line px-6 sm:px-9">
       <span className="font-mono text-xs uppercase tracking-[0.16em] text-fg/85">{label}</span>
       <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-muted">
         <ArrowDown size={15} weight="light" />
@@ -27,43 +27,7 @@ function NextSection({ label, nextStep }: { label: string; nextStep: number }) {
   );
 }
 
-function TypedDescription({ text, active, className }: { text: string; active: boolean; className: string }) {
-  const [visibleText, setVisibleText] = useState("");
-
-  useEffect(() => {
-    if (!active) {
-      setVisibleText("");
-      return;
-    }
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisibleText(text);
-      return;
-    }
-
-    let character = 0;
-    setVisibleText("");
-    const timer = window.setInterval(() => {
-      character += 1;
-      setVisibleText(text.slice(0, character));
-      if (character >= text.length) window.clearInterval(timer);
-    }, 15);
-
-    return () => window.clearInterval(timer);
-  }, [active, text]);
-
-  return (
-    <p className={className} aria-label={text}>
-      {visibleText}
-      {visibleText.length < text.length && <span aria-hidden="true" className="ml-0.5 inline-block text-blue animate-pulse">|</span>}
-    </p>
-  );
-}
-
 export default function CaseStudyModal({ title, line, kind, tags, slug, copy, onClose }: CaseStudyModalProps) {
-  const scrollPanelRef = useRef<HTMLElement | null>(null);
-  const [activeStep, setActiveStep] = useState(0);
-
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -75,28 +39,6 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
       document.body.style.overflow = "";
     };
   }, [onClose]);
-
-  useEffect(() => {
-    const panel = scrollPanelRef.current;
-    if (!panel) return;
-
-    const updateActiveStep = () => {
-      const panelTop = panel.getBoundingClientRect().top;
-      let nextStep = 0;
-
-      panel.querySelectorAll<HTMLElement>("[data-case-study-step]").forEach((prompt) => {
-        if (prompt.getBoundingClientRect().top <= panelTop + 12) {
-          nextStep = Number(prompt.dataset.caseStudyStep);
-        }
-      });
-
-      setActiveStep((currentStep) => (currentStep === nextStep ? currentStep : nextStep));
-    };
-
-    updateActiveStep();
-    panel.addEventListener("scroll", updateActiveStep, { passive: true });
-    return () => panel.removeEventListener("scroll", updateActiveStep);
-  }, []);
 
   return (
     <AnimatePresence>
@@ -148,7 +90,6 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
           </motion.div>
 
           <motion.aside
-            ref={scrollPanelRef}
             className="relative z-0 min-w-0 overflow-x-hidden overflow-y-auto scroll-smooth snap-y snap-mandatory bg-transparent lg:h-full"
             initial={{ x: -180, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -166,29 +107,29 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
               <motion.div className="p-6 sm:p-9" initial={{ opacity: 0, x: 14, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ duration: 0.9, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}>
                 <p className="eyebrow">Case study</p>
                 <h2 className="display mt-5 max-w-[10ch] break-words text-5xl leading-[0.96] sm:text-6xl">{title}</h2>
-                <TypedDescription text={line} active={activeStep === 0} className="mt-7 max-w-[32ch] text-lg leading-8 text-fg/80" />
+                <p className="mt-7 max-w-[32ch] text-lg leading-8 text-fg/80">{line}</p>
               </motion.div>
               <div className="mt-auto">
-                <NextSection label="What was the challenge?" nextStep={1} />
+                <NextSection label="What was the challenge?" />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
-              <TypedDescription text={copy.challenge} active={activeStep === 1} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
+              <p className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl">{copy.challenge}</p>
               <div className="mt-auto">
-                <NextSection label="Our approach" nextStep={2} />
+                <NextSection label="Our approach" />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
-              <TypedDescription text={copy.approach} active={activeStep === 2} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
+              <p className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl">{copy.approach}</p>
               <div className="mt-auto">
-                <NextSection label="Result" nextStep={3} />
+                <NextSection label="Result" />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col p-6 sm:p-9 lg:h-[calc(100%-5rem)] lg:min-h-0">
-              <TypedDescription text={copy.result} active={activeStep === 3} className="display max-w-[18ch] text-3xl leading-[1.22] text-fg sm:text-4xl" />
+              <p className="display max-w-[18ch] text-3xl leading-[1.22] text-fg sm:text-4xl">{copy.result}</p>
               <button type="button" className="mt-auto inline-flex w-fit rounded-full border border-line px-5 py-3 text-sm transition-colors hover:border-blue hover:text-blue" onClick={onClose}>
                 Back to all work
               </button>
