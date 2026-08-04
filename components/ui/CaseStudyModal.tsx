@@ -103,7 +103,7 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
               Close
             </button>
 
-            <section className="flex min-h-[520px] flex-col p-6 sm:p-9 lg:min-h-full">
+            <section className="flex min-h-[520px] snap-start snap-always flex-col p-6 sm:p-9 lg:min-h-full">
               <motion.div initial={{ opacity: 0, x: 14, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ duration: 0.9, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}>
                 <p className="eyebrow">Case study</p>
                 <h2 className="display mt-5 max-w-[10ch] break-words text-5xl leading-[0.96] sm:text-6xl">{title}</h2>
