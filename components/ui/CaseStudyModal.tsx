@@ -18,7 +18,7 @@ const R2_VIDEO_BASE_URL = "https://pub-9ff429d0848548f5b38c2273dbfe2921.r2.dev";
 
 function NextSection({ label }: { label: string }) {
   return (
-    <div className="mt-auto flex snap-start snap-always items-center justify-between gap-5 border-t border-line pt-6">
+    <div className="flex h-20 shrink-0 snap-start snap-always items-center justify-between gap-5 border-t border-line px-6 sm:px-9">
       <span className="font-mono text-xs uppercase tracking-[0.16em] text-fg/85">{label}</span>
       <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-line text-muted">
         <ArrowDown size={15} weight="light" />
@@ -103,26 +103,32 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
               Close
             </button>
 
-            <section className="flex min-h-[520px] snap-start snap-always flex-col p-6 sm:p-9 lg:min-h-full">
-              <motion.div initial={{ opacity: 0, x: 14, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ duration: 0.9, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}>
+            <section className="flex min-h-[520px] snap-start snap-always flex-col lg:h-full lg:min-h-0">
+              <motion.div className="p-6 sm:p-9" initial={{ opacity: 0, x: 14, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ duration: 0.9, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}>
                 <p className="eyebrow">Case study</p>
                 <h2 className="display mt-5 max-w-[10ch] break-words text-5xl leading-[0.96] sm:text-6xl">{title}</h2>
                 <p className="mt-7 max-w-[32ch] text-lg leading-8 text-fg/80">{line}</p>
               </motion.div>
-              <NextSection label="What was the challenge?" />
+              <div className="mt-auto">
+                <NextSection label="What was the challenge?" />
+              </div>
             </section>
 
-            <section className="flex min-h-[520px] flex-col p-6 sm:p-9 lg:min-h-full">
-              <p className="display max-w-[18ch] text-3xl leading-[1.22] text-fg sm:text-4xl">{copy.challenge}</p>
-              <NextSection label="Our approach" />
+            <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
+              <p className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl">{copy.challenge}</p>
+              <div className="mt-auto">
+                <NextSection label="Our approach" />
+              </div>
             </section>
 
-            <section className="flex min-h-[520px] flex-col p-6 sm:p-9 lg:min-h-full">
-              <p className="display max-w-[18ch] text-3xl leading-[1.22] text-fg sm:text-4xl">{copy.approach}</p>
-              <NextSection label="Result" />
+            <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
+              <p className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl">{copy.approach}</p>
+              <div className="mt-auto">
+                <NextSection label="Result" />
+              </div>
             </section>
 
-            <section className="flex min-h-[520px] flex-col p-6 sm:p-9 lg:min-h-full">
+            <section className="flex min-h-[440px] flex-col p-6 sm:p-9 lg:h-[calc(100%-5rem)] lg:min-h-0">
               <p className="display max-w-[18ch] text-3xl leading-[1.22] text-fg sm:text-4xl">{copy.result}</p>
               <button type="button" className="mt-auto inline-flex w-fit rounded-full border border-line px-5 py-3 text-sm transition-colors hover:border-blue hover:text-blue" onClick={onClose}>
                 Back to all work
