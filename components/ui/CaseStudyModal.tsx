@@ -27,36 +27,16 @@ function NextSection({ label, nextStep }: { label: string; nextStep: number }) {
   );
 }
 
-function TypedDescription({ text, active, className }: { text: string; active: boolean; className: string }) {
-  const [visibleText, setVisibleText] = useState("");
-
-  useEffect(() => {
-    if (!active) {
-      setVisibleText("");
-      return;
-    }
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisibleText(text);
-      return;
-    }
-
-    let character = 0;
-    setVisibleText("");
-    const timer = window.setInterval(() => {
-      character += 1;
-      setVisibleText(text.slice(0, character));
-      if (character >= text.length) window.clearInterval(timer);
-    }, 15);
-
-    return () => window.clearInterval(timer);
-  }, [active, text]);
-
+function ScrollDescription({ text, active, className }: { text: string; active: boolean; className: string }) {
   return (
-    <p className={className} aria-label={text}>
-      {visibleText}
-      {visibleText.length < text.length && <span aria-hidden="true" className="ml-0.5 inline-block text-blue animate-pulse">|</span>}
-    </p>
+    <motion.p
+      className={className}
+      initial={{ opacity: 0, y: 18, scale: 0.99 }}
+      animate={active ? { opacity: 1, y: [18, -10, 0], scale: [0.99, 1.012, 1] } : { opacity: 0, y: 18, scale: 0.99 }}
+      transition={{ duration: 0.7, times: [0, 0.52, 1], ease: [0.22, 1, 0.36, 1] }}
+    >
+      {text}
+    </motion.p>
   );
 }
 
@@ -166,7 +146,7 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
               <motion.div className="p-6 sm:p-9" initial={{ opacity: 0, x: 14, y: 6 }} animate={{ opacity: 1, x: 0, y: 0 }} transition={{ duration: 0.9, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}>
                 <p className="eyebrow">Case study</p>
                 <h2 className="display mt-5 max-w-[10ch] break-words text-5xl leading-[0.96] sm:text-6xl">{title}</h2>
-                <TypedDescription text={line} active={activeStep === 0} className="mt-7 max-w-[32ch] text-lg leading-8 text-fg/80" />
+                <ScrollDescription text={line} active={activeStep === 0} className="mt-7 max-w-[32ch] text-lg leading-8 text-fg/80" />
               </motion.div>
               <div className="mt-auto">
                 <NextSection label="What was the challenge?" nextStep={1} />
@@ -174,21 +154,21 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
-              <TypedDescription text={copy.challenge} active={activeStep === 1} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
+              <ScrollDescription text={copy.challenge} active={activeStep === 1} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
               <div className="mt-auto">
                 <NextSection label="Our approach" nextStep={2} />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
-              <TypedDescription text={copy.approach} active={activeStep === 2} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
+              <ScrollDescription text={copy.approach} active={activeStep === 2} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
               <div className="mt-auto">
                 <NextSection label="Result" nextStep={3} />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col p-6 sm:p-9 lg:h-[calc(100%-5rem)] lg:min-h-0">
-              <TypedDescription text={copy.result} active={activeStep === 3} className="display max-w-[18ch] text-3xl leading-[1.22] text-fg sm:text-4xl" />
+              <ScrollDescription text={copy.result} active={activeStep === 3} className="display max-w-[18ch] text-3xl leading-[1.22] text-fg sm:text-4xl" />
               <button type="button" className="mt-auto inline-flex w-fit rounded-full border border-line px-5 py-3 text-sm transition-colors hover:border-blue hover:text-blue" onClick={onClose}>
                 Back to all work
               </button>
