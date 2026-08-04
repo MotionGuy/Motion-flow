@@ -16,17 +16,17 @@ type CaseStudyModalProps = {
 
 const R2_VIDEO_BASE_URL = "https://pub-9ff429d0848548f5b38c2273dbfe2921.r2.dev";
 
-function NextSection({ label, step, isAtTop, onAdvance }: { label: string; step: number; isAtTop: boolean; onAdvance: (prompt: HTMLElement | null) => void }) {
+function NextSection({ label, step, isAtBottom, onAdvance }: { label: string; step: number; isAtBottom: boolean; onAdvance: (prompt: HTMLElement | null) => void }) {
   return (
     <div data-case-study-prompt={step} className="flex h-20 shrink-0 snap-start snap-always items-center justify-between gap-5 border-t border-line px-6 sm:px-9">
       <span className="font-mono text-lg uppercase tracking-[0.14em] text-fg/85 sm:text-xl">{label}</span>
       <button
         type="button"
         aria-label={`Scroll to ${label}`}
-        className={`group flex size-10 shrink-0 items-center justify-center text-muted transition-all duration-300 hover:-translate-y-1 hover:text-fg focus-visible:outline-none focus-visible:text-fg ${isAtTop ? "pointer-events-none opacity-0" : "cursor-pointer opacity-100"}`}
+        className={`group flex size-10 shrink-0 items-center justify-center text-muted transition-all duration-150 hover:-translate-y-1 hover:text-fg focus-visible:outline-none focus-visible:text-fg ${isAtBottom ? "cursor-pointer opacity-100" : "pointer-events-none opacity-0"}`}
         onClick={(event) => onAdvance(event.currentTarget.parentElement)}
       >
-        <ArrowDown size={25} weight="thin" className="transition-transform duration-300 group-hover:translate-y-1" />
+        <ArrowDown size={25} weight="thin" className="transition-transform duration-150 group-hover:translate-y-1" />
       </button>
     </div>
   );
@@ -40,7 +40,7 @@ function Description({ text, className }: { text: string; className: string }) {
 
 export default function CaseStudyModal({ title, line, kind, tags, slug, copy, onClose }: CaseStudyModalProps) {
   const scrollPanelRef = useRef<HTMLElement | null>(null);
-  const [topPrompt, setTopPrompt] = useState<number | null>(null);
+  const [bottomPrompt, setBottomPrompt] = useState<number | null>(null);
 
   const scrollToPrompt = (prompt: HTMLElement | null) => {
     const panel = scrollPanelRef.current;
@@ -64,22 +64,22 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
     const panel = scrollPanelRef.current;
     if (!panel) return;
 
-    const updateTopPrompt = () => {
-      const panelTop = panel.getBoundingClientRect().top;
-      let nextTopPrompt: number | null = null;
+    const updateBottomPrompt = () => {
+      const panelBottom = panel.getBoundingClientRect().bottom;
+      let nextBottomPrompt: number | null = null;
 
       panel.querySelectorAll<HTMLElement>("[data-case-study-prompt]").forEach((prompt) => {
-        if (Math.abs(prompt.getBoundingClientRect().top - panelTop) < 12) {
-          nextTopPrompt = Number(prompt.dataset.caseStudyPrompt);
+        if (Math.abs(prompt.getBoundingClientRect().bottom - panelBottom) < 16) {
+          nextBottomPrompt = Number(prompt.dataset.caseStudyPrompt);
         }
       });
 
-      setTopPrompt((currentPrompt) => (currentPrompt === nextTopPrompt ? currentPrompt : nextTopPrompt));
+      setBottomPrompt((currentPrompt) => (currentPrompt === nextBottomPrompt ? currentPrompt : nextBottomPrompt));
     };
 
-    updateTopPrompt();
-    panel.addEventListener("scroll", updateTopPrompt, { passive: true });
-    return () => panel.removeEventListener("scroll", updateTopPrompt);
+    updateBottomPrompt();
+    panel.addEventListener("scroll", updateBottomPrompt, { passive: true });
+    return () => panel.removeEventListener("scroll", updateBottomPrompt);
   }, []);
 
   return (
@@ -153,21 +153,21 @@ export default function CaseStudyModal({ title, line, kind, tags, slug, copy, on
                 <Description text={line} className="mt-7 max-w-[32ch] text-lg leading-8 text-fg/80" />
               </motion.div>
               <div className="mt-auto">
-                <NextSection label="What was the challenge?" step={1} isAtTop={topPrompt === 1} onAdvance={scrollToPrompt} />
+                <NextSection label="What was the challenge?" step={1} isAtBottom={bottomPrompt === 1} onAdvance={scrollToPrompt} />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
               <Description text={copy.challenge} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
               <div className="mt-auto">
-                <NextSection label="Our approach" step={2} isAtTop={topPrompt === 2} onAdvance={scrollToPrompt} />
+                <NextSection label="Our approach" step={2} isAtBottom={bottomPrompt === 2} onAdvance={scrollToPrompt} />
               </div>
             </section>
 
             <section className="flex min-h-[440px] flex-col lg:h-[calc(100%-5rem)] lg:min-h-0">
               <Description text={copy.approach} className="display max-w-[18ch] p-6 text-3xl leading-[1.22] text-fg sm:p-9 sm:text-4xl" />
               <div className="mt-auto">
-                <NextSection label="Result" step={3} isAtTop={topPrompt === 3} onAdvance={scrollToPrompt} />
+                <NextSection label="Result" step={3} isAtBottom={bottomPrompt === 3} onAdvance={scrollToPrompt} />
               </div>
             </section>
 
