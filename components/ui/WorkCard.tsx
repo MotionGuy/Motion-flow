@@ -109,9 +109,7 @@ export default function WorkCard({
 
   if (href) {
     return (
-      <Link href={href} className={wrapperClass}>
-        {card}
-      </Link>
+      <Link href={href} className={wrapperClass}>{card}</Link>
     );
   }
   return <div className={wrapperClass}>{card}</div>;

@@ -132,9 +132,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         ))}
       </section>
 
-      <div className="mt-16 flex flex-wrap gap-4">
-        <Button href="/work" variant="secondary">See all work</Button>
-        <Button href="/contact" variant="secondary">Book a call</Button>
+        <div className="mt-16 flex flex-wrap gap-4">
+          <Button href="/work" variant="secondary">See all work</Button>
+          <Button href="/contact" variant="secondary">Book a call</Button>
+        </div>
       </div>
       </div>
       </CaseStudyScroll>
