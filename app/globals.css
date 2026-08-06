@@ -160,6 +160,70 @@ body {
   }
 }
 
+@keyframes case-study-wash {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+@keyframes case-study-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes case-study-video-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes case-study-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.case-study-wash {
+  animation: case-study-wash 340ms var(--ease-out-expo) forwards;
+}
+
+.case-study-page-enter {
+  animation: case-study-page-enter 700ms var(--ease-out-expo) both;
+}
+
+.case-study-video-enter {
+  animation: case-study-video-enter 720ms 90ms var(--ease-out-expo) both;
+}
+
+.case-study-copy-enter {
+  animation: case-study-copy-enter 620ms 180ms var(--ease-out-expo) both;
+}
+
+.case-study-sections-enter {
+  animation: case-study-page-enter 680ms 280ms var(--ease-out-expo) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
