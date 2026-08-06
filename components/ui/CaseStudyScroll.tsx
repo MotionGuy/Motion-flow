@@ -47,6 +47,7 @@ export default function CaseStudyScroll({ children }: { children: ReactNode }) {
     const move = (direction: 1 | -1) => {
       const sections = getSections();
       if (!sections.length || moving) return;
+
       const nextIndex = Math.max(0, Math.min(sections.length - 1, activeIndex + direction));
       goTo(nextIndex);
     };

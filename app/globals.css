@@ -166,7 +166,7 @@ html {
   }
 }
 
-.case-study-story {
+.case-study-panel {
   display: flex;
   box-sizing: border-box;
   height: calc(100dvh - 6.5rem);
@@ -176,7 +176,7 @@ html {
   scroll-margin-top: 6.5rem;
 }
 
-#case-intro {
+.case-study-intro {
   scroll-margin-top: 6.5rem;
 }
 
@@ -234,7 +234,7 @@ html {
 }
 
 @media (max-width: 767px) {
-  .case-study-story {
+  .case-study-panel {
     height: auto;
     min-height: calc(100dvh - 6.5rem);
   }
