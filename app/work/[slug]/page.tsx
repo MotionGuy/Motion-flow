@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import PageShell from "@/components/PageShell";
 import Button from "@/components/ui/Button";
 import CaseStudyVideo from "@/components/ui/CaseStudyVideo";
+import CaseStudyScroll from "@/components/ui/CaseStudyScroll";
 
 type Study = {
   title: string;
@@ -80,41 +81,53 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   if (!study) notFound();
 
   const sections = [
-    ["What was the challenge?", study.challenge],
-    ["Our approach", study.approach],
-    ["Result", study.result],
+    { id: "challenge", heading: "What was the challenge?", text: study.challenge, next: "Our approach", nextId: "approach" },
+    { id: "approach", heading: "Our approach", text: study.approach, next: "Result", nextId: "result" },
+    { id: "result", heading: "Result", text: study.result },
   ];
 
   return (
     <PageShell>
+      <CaseStudyScroll>
+      <div id="case-intro" data-case-study-section className="-mt-12 md:-mt-20">
       <Link href="/work" className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted transition-colors hover:text-fg">
         <ArrowLeft size={16} weight="light" className="transition-transform duration-300 group-hover:-translate-x-1" />
         Back to all work
       </Link>
 
-      <section className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.75fr)] lg:gap-16">
+      <section className="mt-12 grid min-w-0 gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.75fr)] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <CaseStudyVideo src={`${R2_VIDEO_BASE_URL}/${slug}.mp4`} title={study.title} />
           <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted">{study.kind}</p>
         </div>
 
-        <div className="flex flex-col justify-center lg:min-h-[min(72vh,720px)]">
+        <div className="flex min-w-0 flex-col justify-start pt-12 lg:min-h-[calc(100dvh-196px)] lg:pt-16">
           <p className="eyebrow">Case study</p>
-          <h1 className="display mt-6 max-w-[10ch] text-[clamp(4rem,8vw,7.5rem)] leading-[0.88]">{study.title}</h1>
+          <h1 className="display mt-6 max-w-[10ch] break-words text-[clamp(3rem,3.6vw,4.5rem)] leading-[0.92]">{study.title}</h1>
           <p className="mt-8 max-w-[28ch] text-xl leading-9 text-fg/80 md:text-2xl md:leading-10">{study.line}</p>
           <div className="mt-9 flex flex-wrap gap-2">
             {study.tags.map((tag) => (
               <span key={tag} className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">{tag}</span>
             ))}
           </div>
+          <a href="#challenge" className="case-study-next mt-auto pt-7">
+            <span>What was the challenge?</span>
+            <span aria-hidden>↓</span>
+          </a>
         </div>
       </section>
 
-      <section className="mt-24 border-t border-line md:mt-32">
-        {sections.map(([heading, text], index) => (
-          <article key={heading} className="grid gap-7 border-b border-line py-14 md:grid-cols-[minmax(220px,0.42fr)_minmax(0,0.58fr)] md:gap-12 md:py-20">
-            <p className="eyebrow">0{index + 1} · {heading}</p>
-            <p className="display max-w-[25ch] text-[clamp(2rem,4vw,4rem)] leading-[1.08]">{text}</p>
+      <section className="mt-16 border-t border-line md:mt-20">
+        {sections.map((section, index) => (
+          <article id={section.id} data-case-study-section key={section.id} className="case-study-story scroll-mt-28 border-b border-line">
+            <p className="eyebrow">0{index + 1} · {section.heading}</p>
+            <p className="display mt-16 max-w-[18ch] text-[clamp(2.8rem,5.4vw,5.5rem)] leading-[0.98] md:mt-20">{section.text}</p>
+            {section.next && (
+              <a href={`#${section.nextId}`} className="case-study-next mt-auto">
+                <span>{section.next}</span>
+                <span aria-hidden>↓</span>
+              </a>
+            )}
           </article>
         ))}
       </section>
@@ -123,6 +136,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <Button href="/work" variant="secondary">See all work</Button>
         <Button href="/contact" variant="secondary">Book a call</Button>
       </div>
+      </div>
+      </CaseStudyScroll>
     </PageShell>
   );
 }
