@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { CSSProperties } from "react";
 import Tag from "./Tag";
 
@@ -39,7 +40,9 @@ export default function WorkCard({
   className = "",
 }: WorkCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const wrapperClass = `group relative block w-full transform-gpu transition-[transform,filter] duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${className}`;
+  const [opening, setOpening] = useState(false);
+  const router = useRouter();
+  const wrapperClass = `group relative block w-full transform-gpu transition-[transform,filter] duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${opening ? "z-[80] scale-[1.055] brightness-110" : ""} ${className}`;
 
   const keepPlayingMuted = () => {
     const video = videoRef.current;
@@ -109,9 +112,21 @@ export default function WorkCard({
 
   if (href) {
     return (
-      <Link href={href} className={wrapperClass}>
-        {card}
-      </Link>
+      <>
+        {opening && <span aria-hidden className="case-study-wash pointer-events-none fixed inset-0 z-[70] bg-ink" />}
+        <Link
+          href={href}
+          className={wrapperClass}
+          onClick={(event) => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || opening) return;
+            event.preventDefault();
+            setOpening(true);
+            window.setTimeout(() => router.push(href), 340);
+          }}
+        >
+          {card}
+        </Link>
+      </>
     );
   }
   return <div className={wrapperClass}>{card}</div>;
