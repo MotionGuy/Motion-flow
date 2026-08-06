@@ -20,11 +20,6 @@ type Piece = {
 };
 
 const CASE_STUDY_COPY: Record<string, { challenge: string; approach: string; result: string }> = {
-  oogubi: {
-    challenge: "Create a distinctive visual world for a technology brand with a complex story.",
-    approach: "Particle-led 3D motion and a cinematic pace turn the brand system into a memorable film.",
-    result: "A high-impact brand piece built to introduce Oogubi across launch and digital touchpoints.",
-  },
   wafersight: {
     challenge: "Turn dense semiconductor data into a story a buyer can understand quickly.",
     approach: "A crisp 2D explainer that maps the product journey from signal to decision.",
@@ -80,17 +75,6 @@ const CASE_STUDY_COPY: Record<string, { challenge: string; approach: string; res
 /* Sourced from the studio Drive (2d animations / 3d animations folders).
    Outcome lines are working copy; Denys refines per piece. */
 const PIECES: Piece[] = [
-  {
-    title: "Oogubi",
-    line: "A cinematic 3D brand film built around a distinctive visual system.",
-    kind: "3D",
-    tags: ["Brand film", "Technology"],
-    slug: "oogubi",
-    posterStyle: {
-      background:
-        "radial-gradient(70% 120% at 50% 55%, rgba(169,199,255,0.12), transparent 58%), linear-gradient(145deg, #0e1118, #131620)",
-    },
-  },
   {
     title: "Wafersight",
     line: "A dense semiconductor data platform, made clear in 60 seconds.",
