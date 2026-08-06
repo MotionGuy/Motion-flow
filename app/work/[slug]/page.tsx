@@ -110,10 +110,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               <span key={tag} className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">{tag}</span>
             ))}
           </div>
-          <a href="#challenge" className="case-study-next mt-auto pt-7">
+          <button type="button" data-case-study-next data-next-section="challenge" className="case-study-next mt-auto pt-7">
             <span>What was the challenge?</span>
             <span aria-hidden>↓</span>
-          </a>
+          </button>
         </div>
       </section>
 
@@ -122,20 +122,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <article id={section.id} data-case-study-section key={section.id} className="case-study-story scroll-mt-28 border-b border-line">
             <p className="eyebrow">0{index + 1} · {section.heading}</p>
             <p className="display mt-16 max-w-[18ch] text-[clamp(2.8rem,5.4vw,5.5rem)] leading-[0.98] md:mt-20">{section.text}</p>
-            {section.next && (
-              <a href={`#${section.nextId}`} className="case-study-next mt-auto">
+            {section.next ? (
+              <button type="button" data-case-study-next data-next-section={section.nextId} className="case-study-next mt-auto">
                 <span>{section.next}</span>
                 <span aria-hidden>↓</span>
-              </a>
+              </button>
+            ) : (
+              <div className="case-study-actions mt-auto">
+                <Button href="/work" variant="secondary">See all work</Button>
+                <Button href="/contact" variant="secondary">Book a call</Button>
+              </div>
             )}
           </article>
         ))}
       </section>
 
-        <div className="mt-16 flex flex-wrap gap-4">
-          <Button href="/work" variant="secondary">See all work</Button>
-          <Button href="/contact" variant="secondary">Book a call</Button>
-        </div>
       </div>
       </CaseStudyScroll>
     </PageShell>
