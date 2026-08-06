@@ -137,7 +137,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <Button href="/contact" variant="secondary">Book a call</Button>
         </div>
       </div>
-      </div>
       </CaseStudyScroll>
     </PageShell>
   );
