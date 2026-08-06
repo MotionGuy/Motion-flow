@@ -6,7 +6,6 @@ import PageShell from "@/components/PageShell";
 import Tag from "@/components/ui/Tag";
 import Reveal from "@/components/ui/Reveal";
 import WorkCard from "@/components/ui/WorkCard";
-import CaseStudyModal from "@/components/ui/CaseStudyModal";
 
 type Kind = "All" | "2D" | "3D";
 
@@ -208,7 +207,6 @@ const FILTERS: Kind[] = ["All", "2D", "3D"];
 
 export default function WorkGrid() {
   const [filter, setFilter] = useState<Kind>("All");
-  const [selected, setSelected] = useState<Piece | null>(null);
   const visible = PIECES.filter((p) => filter === "All" || p.kind === filter);
 
   return (
@@ -232,7 +230,7 @@ export default function WorkGrid() {
               tags={[p.kind, ...p.tags]}
               posterStyle={p.posterStyle}
               videoSrc={`/video/work/${p.slug}.mp4`}
-              onOpen={() => setSelected(p)}
+              href={`/work/${p.slug}`}
             />
           </Reveal>
         ))}
@@ -242,17 +240,6 @@ export default function WorkGrid() {
         Cybersecurity pieces in production. New work landing soon.
       </p>
 
-      {selected && (
-        <CaseStudyModal
-          title={selected.title}
-          line={selected.line}
-          kind={selected.kind}
-          tags={selected.tags}
-          slug={selected.slug}
-          copy={CASE_STUDY_COPY[selected.slug]}
-          onClose={() => setSelected(null)}
-        />
-      )}
     </PageShell>
   );
 }
