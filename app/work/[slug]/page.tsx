@@ -87,7 +87,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <PageShell>
-      <div className="-mt-8 md:-mt-20">
+      <div className="-mt-12 md:-mt-32">
         <Link href="/work" className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted transition-colors hover:text-fg">
           <ArrowLeft size={16} weight="light" className="transition-transform duration-300 group-hover:-translate-x-1" />
           Back to all work
@@ -99,7 +99,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted">{study.kind}</p>
           </div>
 
-          <div className="flex min-h-[min(56vh,540px)] flex-col justify-center lg:min-h-[calc(100dvh-196px)]">
+          <div className="flex min-h-[min(56vh,540px)] flex-col justify-center lg:min-h-[calc(100dvh-148px)] lg:justify-start lg:pt-16">
             <p className="eyebrow">Case study</p>
             <h1 className="display mt-6 max-w-[10ch] text-[clamp(4rem,8vw,7.5rem)] leading-[0.88]">{study.title}</h1>
             <p className="mt-8 max-w-[28ch] text-xl leading-9 text-fg/80 md:text-2xl md:leading-10">{study.line}</p>
