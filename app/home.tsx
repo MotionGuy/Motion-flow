@@ -18,7 +18,6 @@ import LiquidBackground from "@/components/ui/LiquidBackground";
 import TextReveal from "@/components/ui/TextReveal";
 import Reveal from "@/components/ui/Reveal";
 import WorkCard from "@/components/ui/WorkCard";
-import CaseStudyModal from "@/components/ui/CaseStudyModal";
 
 /* Featured work; poster gradients stand in until real video assets land. */
 const WORK = [
@@ -258,7 +257,6 @@ function ClientMarquee() {
 
 export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
-  const [selectedWork, setSelectedWork] = useState<(typeof WORK)[number] | null>(null);
 
   return (
     <div className="min-h-[100dvh]">
@@ -353,12 +351,12 @@ export default function Home() {
           </Reveal>
           <div className="mt-16 space-y-12 md:space-y-16">
             <Reveal>
-              <WorkCard className="mx-auto max-w-[1120px]" {...WORK[0]} videoSrc={homePreviewSrc(WORK[0].slug)} onOpen={() => setSelectedWork(WORK[0])} />
+              <WorkCard className="mx-auto max-w-[1120px]" {...WORK[0]} videoSrc={homePreviewSrc(WORK[0].slug)} href={`/work/${WORK[0].slug}`} />
             </Reveal>
             <div className="grid gap-8 md:grid-cols-2">
               {[WORK[4], WORK[3], WORK[2], WORK[5]].map((work, index) => (
                 <Reveal key={work.slug} delay={index * 0.07}>
-                  <WorkCard {...work} videoSrc={homePreviewSrc(work.slug)} onOpen={() => setSelectedWork(work)} />
+                  <WorkCard {...work} videoSrc={homePreviewSrc(work.slug)} href={`/work/${work.slug}`} />
                 </Reveal>
               ))}
             </div>
@@ -367,7 +365,7 @@ export default function Home() {
                 className="mx-auto max-w-[1120px]"
                 {...WORK[1]}
                 videoSrc={homePreviewSrc(WORK[1].slug)}
-                onOpen={() => setSelectedWork(WORK[1])}
+                href={`/work/${WORK[1].slug}`}
               />
             </Reveal>
           </div>
@@ -551,17 +549,6 @@ export default function Home() {
       </main>
 
       <Footer />
-      {selectedWork && (
-        <CaseStudyModal
-          title={selectedWork.client}
-          line={selectedWork.outcome}
-          kind={selectedWork.kind}
-          tags={selectedWork.tags}
-          slug={selectedWork.slug}
-          copy={selectedWork.caseStudy}
-          onClose={() => setSelectedWork(null)}
-        />
-      )}
     </div>
   );
 }
