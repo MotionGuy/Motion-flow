@@ -36,14 +36,14 @@ function getDestination() {
   const contentWidth = shellWidth - padding * 2;
   const columnGap = mobile ? 0 : 64;
   const videoWidth = mobile ? width - padding * 2 : (contentWidth - columnGap) * 0.625;
-  const pageVideoTop = mobile ? 255 : 275;
+  const pageVideoTop = mobile ? 211 : 195;
   return {
     left: outerGutter + padding,
     top: pageVideoTop,
     width: videoWidth,
     height: videoWidth * 0.5625,
     copyLeft: mobile ? padding : outerGutter + padding + videoWidth + columnGap,
-    copyTop: mobile ? pageVideoTop + videoWidth * 0.5625 + 58 : Math.max(390, pageVideoTop + (Math.min(window.innerHeight * 0.72, 720) - 350) / 2),
+    copyTop: mobile ? pageVideoTop + videoWidth * 0.5625 + 58 : Math.max(330, pageVideoTop + (Math.min(window.innerHeight * 0.6, 600) - 350) / 2),
   };
 }
 
