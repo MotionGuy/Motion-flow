@@ -170,7 +170,7 @@ html {
   display: flex;
   min-height: calc(100dvh - 7rem);
   flex-direction: column;
-  padding: clamp(3.5rem, 8vw, 7rem) 0 2rem;
+  padding: clamp(3rem, 6vh, 4rem) 0 clamp(1.5rem, 3vh, 2rem);
 }
 
 .case-study-next {
@@ -178,7 +178,7 @@ html {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: clamp(2rem, 5vh, 4.5rem);
+  margin-bottom: 0;
   border-top: 1px solid var(--line);
   padding-top: 1.25rem;
   font-family: var(--font-mono);

@@ -11,6 +11,12 @@ export default function CaseStudyScroll({ children }: { children: ReactNode }) {
     let locked = false;
     let unlockTimer: number | undefined;
 
+    const unlock = () => {
+      locked = false;
+      if (unlockTimer) window.clearTimeout(unlockTimer);
+      unlockTimer = undefined;
+    };
+
     const move = (direction: 1 | -1) => {
       if (locked) return;
       const sections = Array.from(document.querySelectorAll<HTMLElement>(SECTION_SELECTOR));
@@ -27,7 +33,9 @@ export default function CaseStudyScroll({ children }: { children: ReactNode }) {
 
       locked = true;
       window.scrollTo({ top: sections[next].offsetTop - HEADER_OFFSET, behavior: "smooth" });
-      unlockTimer = window.setTimeout(() => { locked = false; }, 760);
+      // Chrome emits scrollend once its smooth movement is complete. The timer
+      // is only a fallback for browsers that do not support that event.
+      unlockTimer = window.setTimeout(unlock, 1400);
     };
 
     const onWheel = (event: WheelEvent) => {
@@ -51,9 +59,11 @@ export default function CaseStudyScroll({ children }: { children: ReactNode }) {
 
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("scrollend", unlock);
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("scrollend", unlock);
       if (unlockTimer) window.clearTimeout(unlockTimer);
     };
   }, []);

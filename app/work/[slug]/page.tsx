@@ -101,7 +101,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted">{study.kind}</p>
         </div>
 
-        <div className="flex min-w-0 flex-col justify-start pt-12 lg:min-h-[calc(100dvh-196px)] lg:pt-16">
+        <div className="flex min-w-0 flex-col justify-start pb-8 pt-12 lg:min-h-[calc(100dvh-196px)] lg:pt-16">
           <p className="eyebrow">Case study</p>
           <h1 className="display mt-6 max-w-[10ch] break-words text-[clamp(3rem,3.6vw,4.5rem)] leading-[0.92]">{study.title}</h1>
           <p className="mt-8 max-w-[28ch] text-xl leading-9 text-fg/80 md:text-2xl md:leading-10">{study.line}</p>
