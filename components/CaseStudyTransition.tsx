@@ -29,12 +29,20 @@ export function useCaseStudyTransition() {
 function getDestination() {
   const width = window.innerWidth;
   const mobile = width < 768;
-  const videoWidth = mobile ? width - 40 : Math.min(width * 0.51, 720);
+  const shellWidth = Math.min(width, 1280);
+  const outerGutter = (width - shellWidth) / 2;
+  const padding = mobile ? 24 : 40;
+  const contentWidth = shellWidth - padding * 2;
+  const columnGap = mobile ? 0 : 64;
+  const videoWidth = mobile ? width - padding * 2 : (contentWidth - columnGap) * 0.625;
+  const pageVideoTop = mobile ? 255 : 275;
   return {
-    left: mobile ? 20 : Math.max(32, (width - 1280) / 2 + 40),
-    top: mobile ? 112 : Math.max(132, window.innerHeight * 0.18),
+    left: outerGutter + padding,
+    top: pageVideoTop,
     width: videoWidth,
     height: videoWidth * 0.5625,
+    copyLeft: mobile ? padding : outerGutter + padding + videoWidth + columnGap,
+    copyTop: mobile ? pageVideoTop + videoWidth * 0.5625 + 58 : Math.max(390, pageVideoTop + (Math.min(window.innerHeight * 0.72, 720) - 350) / 2),
   };
 }
 
@@ -58,14 +66,16 @@ export default function CaseStudyTransition({ children }: { children: ReactNode 
     setLeaving(false);
     requestAnimationFrame(() => setActive(true));
 
-    timers.current.push(window.setTimeout(() => router.push(nextItem.href), 650));
-    timers.current.push(window.setTimeout(() => setLeaving(true), 1050));
+    // The destination is mounted while the travelling preview is still above it.
+    // This prevents a blank intermediate frame between the grid and the study.
+    timers.current.push(window.setTimeout(() => router.push(nextItem.href), 360));
+    timers.current.push(window.setTimeout(() => setLeaving(true), 900));
     timers.current.push(window.setTimeout(() => {
       setItem(null);
       setActive(false);
       setLeaving(false);
       clearTimers();
-    }, 1280));
+    }, 1190));
   };
 
   const destination = item && typeof window !== "undefined" ? getDestination() : null;
@@ -78,15 +88,17 @@ export default function CaseStudyTransition({ children }: { children: ReactNode 
     "--end-top": `${destination.top}px`,
     "--end-width": `${destination.width}px`,
     "--end-height": `${destination.height}px`,
+    "--end-copy-left": `${destination.copyLeft}px`,
+    "--end-copy-top": `${destination.copyTop}px`,
   } as CSSProperties : undefined;
 
   return (
     <TransitionContext.Provider value={{ openCaseStudy, isOpening: Boolean(item) }}>
       {children}
       {item && (
-        <div className={`case-study-transition ${active ? "is-active" : ""} ${leaving ? "is-leaving" : ""}`} aria-hidden>
+        <div className={`case-study-transition ${active ? "is-active" : ""} ${leaving ? "is-leaving" : ""}`} style={cardStyle} aria-hidden>
           <div className="case-study-transition__dim" />
-          <div className="case-study-transition__video" style={cardStyle}>
+          <div className="case-study-transition__video">
             {item.videoSrc ? (
               <video src={item.videoSrc} autoPlay muted loop playsInline preload="auto" className="size-full object-cover" />
             ) : item.posterSrc ? (

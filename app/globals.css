@@ -186,19 +186,19 @@ body {
   border-radius: 14px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
   transition:
-    left 850ms cubic-bezier(0.16, 1, 0.3, 1),
-    top 850ms cubic-bezier(0.16, 1, 0.3, 1),
-    width 850ms cubic-bezier(0.16, 1, 0.3, 1),
-    height 850ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-radius 850ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 850ms cubic-bezier(0.16, 1, 0.3, 1),
+    left 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    top 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 760ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity 220ms ease;
 }
 
 .case-study-transition__copy {
   position: absolute;
-  left: min(61vw, calc(50% + 160px));
-  top: max(154px, 21vh);
+  left: var(--end-copy-left);
+  top: var(--end-copy-top);
   width: min(33vw, 480px);
   opacity: 0;
   transform: translate3d(70px, 0, 0);
@@ -229,16 +229,55 @@ body {
 .case-study-transition.is-leaving .case-study-transition__copy,
 .case-study-transition.is-leaving .case-study-transition__dim {
   opacity: 0;
-  transition-duration: 230ms;
+  transition-duration: 290ms;
   transition-delay: 0ms;
 }
 
 @media (max-width: 767px) {
   .case-study-transition__copy {
-    left: 20px;
-    top: min(68vh, 540px);
+    left: var(--end-copy-left);
+    top: var(--end-copy-top);
     width: calc(100% - 40px);
   }
+}
+
+.case-study-story {
+  display: flex;
+  min-height: min(74vh, 760px);
+  flex-direction: column;
+  padding: clamp(3.5rem, 8vw, 7rem) 0 2.5rem;
+}
+
+.case-study-next {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg);
+  transition: color 250ms ease, border-color 250ms ease;
+}
+
+.case-study-next span:last-child {
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+  transition: transform 250ms var(--ease-out-expo);
+}
+
+.case-study-next:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.case-study-next:hover span:last-child {
+  transform: translateY(5px);
 }
 
 @media (prefers-reduced-motion: reduce) {
