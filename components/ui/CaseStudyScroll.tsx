@@ -15,6 +15,12 @@ export default function CaseStudyScroll({ children }: { children: ReactNode }) {
 
     const getSections = () => Array.from(document.querySelectorAll<HTMLElement>(SECTION_SELECTOR));
 
+    const findClosestSection = (sections: HTMLElement[]) => sections.reduce((closest, section, index) => {
+      const distance = Math.abs(section.getBoundingClientRect().top - 104);
+      const closestDistance = Math.abs(sections[closest].getBoundingClientRect().top - 104);
+      return distance < closestDistance ? index : closest;
+    }, 0);
+
     const updatePromptVisibility = (sections: HTMLElement[], currentIndex: number) => {
       sections.forEach((section, index) => {
         section.querySelectorAll<HTMLElement>("[data-case-study-next]").forEach((prompt) => {
@@ -28,7 +34,11 @@ export default function CaseStudyScroll({ children }: { children: ReactNode }) {
     const goTo = (nextIndex: number) => {
       const sections = getSections();
       const destination = sections[nextIndex];
-      if (!destination || moving || nextIndex === activeIndex) return;
+      if (!destination || moving) return;
+      if (nextIndex === activeIndex) {
+        updatePromptVisibility(sections, activeIndex);
+        return;
+      }
 
       moving = true;
       activeIndex = nextIndex;
@@ -91,16 +101,25 @@ export default function CaseStudyScroll({ children }: { children: ReactNode }) {
       if (destinationIndex >= 0) goTo(destinationIndex);
     };
 
+    const onScrollEnd = () => {
+      const sections = getSections();
+      if (!sections.length) return;
+      activeIndex = findClosestSection(sections);
+      updatePromptVisibility(sections, activeIndex);
+    };
+
     const sections = getSections();
     // A case study always opens at the video/title section.
     updatePromptVisibility(sections, activeIndex);
 
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("scrollend", onScrollEnd);
     document.addEventListener("click", onNextClick);
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("scrollend", onScrollEnd);
       document.removeEventListener("click", onNextClick);
       if (unlockTimer) window.clearTimeout(unlockTimer);
       if (wheelIntentTimer) window.clearTimeout(wheelIntentTimer);
