@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { CSSProperties } from "react";
 import Tag from "./Tag";
+import { useCaseStudyTransition } from "@/components/CaseStudyTransition";
 
 type WorkCardProps = {
   client: string;
@@ -40,8 +41,10 @@ export default function WorkCard({
   className = "",
 }: WorkCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
   const [opening, setOpening] = useState(false);
   const router = useRouter();
+  const caseStudyTransition = useCaseStudyTransition();
   const wrapperClass = `group relative block w-full transform-gpu transition-[transform,filter,opacity] duration-[620ms] [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${opening ? "z-[80] scale-[1.045] brightness-110 saturate-110" : ""} ${className}`;
 
   const keepPlayingMuted = () => {
@@ -53,7 +56,7 @@ export default function WorkCard({
 
   const card = (
       <article>
-        <div className={`relative ${aspectClass} overflow-hidden rounded-[14px] border border-line bg-panel transition-shadow duration-300 group-hover:shadow-[0_28px_56px_-20px_rgba(0,0,0,0.7),0_0_36px_rgba(169,199,255,0.08)]`}>
+        <div ref={mediaRef} className={`relative ${aspectClass} overflow-hidden rounded-[14px] border border-line bg-panel transition-shadow duration-300 group-hover:shadow-[0_28px_56px_-20px_rgba(0,0,0,0.7),0_0_36px_rgba(169,199,255,0.08)]`}>
           {posterSrc ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -113,13 +116,17 @@ export default function WorkCard({
   if (href) {
     return (
       <>
-        {opening && <span aria-hidden className="case-study-dim pointer-events-none fixed inset-0 z-[70]" />}
         <Link
           href={href}
           className={wrapperClass}
           onClick={(event) => {
             if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || opening) return;
             event.preventDefault();
+            const rect = mediaRef.current?.getBoundingClientRect();
+            if (caseStudyTransition && rect) {
+              caseStudyTransition.openCaseStudy({ href, client, outcome, tags, videoSrc, posterSrc, posterStyle, rect });
+              return;
+            }
             setOpening(true);
             window.setTimeout(() => router.push(href), 520);
           }}

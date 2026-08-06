@@ -87,19 +87,19 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <PageShell>
-      <div className="case-study-page-enter">
+      <div>
         <Link href="/work" className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-muted transition-colors hover:text-fg">
           <ArrowLeft size={16} weight="light" className="transition-transform duration-300 group-hover:-translate-x-1" />
           Back to all work
         </Link>
 
         <section className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.75fr)] lg:gap-16">
-          <div className="case-study-video-enter lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:sticky lg:top-28 lg:self-start">
             <CaseStudyVideo src={`${R2_VIDEO_BASE_URL}/${slug}.mp4`} title={study.title} />
             <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted">{study.kind}</p>
           </div>
 
-          <div className="case-study-copy-enter flex flex-col justify-center lg:min-h-[min(72vh,720px)]">
+          <div className="flex flex-col justify-center lg:min-h-[min(72vh,720px)]">
             <p className="eyebrow">Case study</p>
             <h1 className="display mt-6 max-w-[10ch] text-[clamp(4rem,8vw,7.5rem)] leading-[0.88]">{study.title}</h1>
             <p className="mt-8 max-w-[28ch] text-xl leading-9 text-fg/80 md:text-2xl md:leading-10">{study.line}</p>
@@ -111,7 +111,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </div>
         </section>
 
-        <section className="case-study-sections-enter mt-24 border-t border-line md:mt-32">
+        <section className="mt-24 border-t border-line md:mt-32">
           {sections.map(([heading, text], index) => (
             <article key={heading} className="grid gap-7 border-b border-line py-14 md:grid-cols-[minmax(220px,0.42fr)_minmax(0,0.58fr)] md:gap-12 md:py-20">
               <p className="eyebrow">0{index + 1} · {heading}</p>
@@ -120,7 +120,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           ))}
         </section>
 
-        <div className="case-study-sections-enter mt-16 flex flex-wrap gap-4">
+        <div className="mt-16 flex flex-wrap gap-4">
           <Button href="/work" variant="secondary">See all work</Button>
           <Button href="/contact" variant="secondary">Book a call</Button>
         </div>
