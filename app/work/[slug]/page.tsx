@@ -20,10 +20,6 @@ type Study = {
 const R2_VIDEO_BASE_URL = "https://pub-9ff429d0848548f5b38c2273dbfe2921.r2.dev";
 
 const STUDIES: Record<string, Study> = {
-  oogubi: {
-    title: "Oogubi", line: "A cinematic 3D brand film built around a distinctive visual system.", kind: "3D brand film", tags: ["Brand film", "Technology"],
-    challenge: "Create a distinctive visual world for a technology brand with a complex story.", approach: "Particle-led 3D motion and a cinematic pace turn the brand system into a memorable film.", result: "A high-impact brand piece built to introduce Oogubi across launch and digital touchpoints.",
-  },
   wafersight: {
     title: "Wafersight", line: "A dense semiconductor data platform, made clear in 60 seconds.", kind: "2D explainer", tags: ["Explainer", "Deep Tech"],
     challenge: "Turn dense semiconductor data into a story a buyer can understand quickly.", approach: "A crisp 2D explainer that maps the product journey from signal to decision.", result: "A launch-ready film for the homepage, sales conversations and technical demos.",
