@@ -160,21 +160,19 @@ body {
   }
 }
 
-@keyframes case-study-wash {
+@keyframes case-study-dim {
   from {
     opacity: 0;
-    backdrop-filter: blur(0);
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(8px);
   }
 }
 
 @keyframes case-study-page-enter {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -185,18 +183,18 @@ body {
 @keyframes case-study-video-enter {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.985);
+    transform: translate3d(58px, 12px, 0) scale(1.055);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes case-study-copy-enter {
   from {
     opacity: 0;
-    transform: translateX(18px);
+    transform: translate3d(52px, 0, 0);
   }
   to {
     opacity: 1;
@@ -204,24 +202,25 @@ body {
   }
 }
 
-.case-study-wash {
-  animation: case-study-wash 340ms var(--ease-out-expo) forwards;
+.case-study-dim {
+  background: rgba(4, 6, 12, 0.76);
+  animation: case-study-dim 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .case-study-page-enter {
-  animation: case-study-page-enter 700ms var(--ease-out-expo) both;
+  animation: case-study-page-enter 560ms 20ms var(--ease-out-expo) both;
 }
 
 .case-study-video-enter {
-  animation: case-study-video-enter 720ms 90ms var(--ease-out-expo) both;
+  animation: case-study-video-enter 760ms 40ms var(--ease-out-expo) both;
 }
 
 .case-study-copy-enter {
-  animation: case-study-copy-enter 620ms 180ms var(--ease-out-expo) both;
+  animation: case-study-copy-enter 610ms 180ms var(--ease-out-expo) both;
 }
 
 .case-study-sections-enter {
-  animation: case-study-page-enter 680ms 280ms var(--ease-out-expo) both;
+  animation: case-study-page-enter 620ms 320ms var(--ease-out-expo) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

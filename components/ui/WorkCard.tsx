@@ -42,7 +42,7 @@ export default function WorkCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [opening, setOpening] = useState(false);
   const router = useRouter();
-  const wrapperClass = `group relative block w-full transform-gpu transition-[transform,filter] duration-500 [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${opening ? "z-[80] scale-[1.055] brightness-110" : ""} ${className}`;
+  const wrapperClass = `group relative block w-full transform-gpu transition-[transform,filter,opacity] duration-[620ms] [transition-timing-function:var(--ease-out-expo)] motion-safe:hover:z-10 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.035] motion-safe:hover:drop-shadow-[0_28px_42px_rgba(0,0,0,0.45)] ${opening ? "z-[80] scale-[1.045] brightness-110 saturate-110" : ""} ${className}`;
 
   const keepPlayingMuted = () => {
     const video = videoRef.current;
@@ -113,7 +113,7 @@ export default function WorkCard({
   if (href) {
     return (
       <>
-        {opening && <span aria-hidden className="case-study-wash pointer-events-none fixed inset-0 z-[70] bg-ink" />}
+        {opening && <span aria-hidden className="case-study-dim pointer-events-none fixed inset-0 z-[70]" />}
         <Link
           href={href}
           className={wrapperClass}
@@ -121,7 +121,7 @@ export default function WorkCard({
             if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || opening) return;
             event.preventDefault();
             setOpening(true);
-            window.setTimeout(() => router.push(href), 340);
+            window.setTimeout(() => router.push(href), 520);
           }}
         >
           {card}
