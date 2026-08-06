@@ -17,6 +17,7 @@ type TransitionItem = {
 
 type TransitionContextValue = {
   openCaseStudy: (item: TransitionItem) => void;
+  completeCaseStudyTransition: () => void;
   isOpening: boolean;
 };
 
@@ -52,6 +53,8 @@ export default function CaseStudyTransition({ children }: { children: ReactNode 
   const [active, setActive] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const timers = useRef<number[]>([]);
+  const startedAt = useRef(0);
+  const finishing = useRef(false);
 
   const clearTimers = () => {
     timers.current.forEach(window.clearTimeout);
@@ -62,20 +65,34 @@ export default function CaseStudyTransition({ children }: { children: ReactNode 
 
   const openCaseStudy = (nextItem: TransitionItem) => {
     if (item) return;
+    startedAt.current = performance.now();
+    finishing.current = false;
     setItem(nextItem);
     setLeaving(false);
     requestAnimationFrame(() => setActive(true));
 
-    // The destination is mounted while the travelling preview is still above it.
-    // This prevents a blank intermediate frame between the grid and the study.
-    timers.current.push(window.setTimeout(() => router.push(nextItem.href), 360));
-    timers.current.push(window.setTimeout(() => setLeaving(true), 900));
+    // The old page remains visible underneath the dim layer while the selected
+    // preview travels. The new page is mounted only once it reaches its place.
+    timers.current.push(window.setTimeout(() => router.push(nextItem.href), 840));
+    // Safety fallback in case the full video takes unusually long to load.
+    timers.current.push(window.setTimeout(() => completeCaseStudyTransition(), 3200));
+  };
+
+  const completeCaseStudyTransition = () => {
+    if (!item || leaving || finishing.current) return;
+    finishing.current = true;
+    const elapsed = performance.now() - startedAt.current;
+    const remainingTravel = Math.max(0, 1150 - elapsed);
     timers.current.push(window.setTimeout(() => {
-      setItem(null);
-      setActive(false);
-      setLeaving(false);
-      clearTimers();
-    }, 1190));
+      setLeaving(true);
+      timers.current.push(window.setTimeout(() => {
+        setItem(null);
+        setActive(false);
+        setLeaving(false);
+        finishing.current = false;
+        clearTimers();
+      }, 420));
+    }, remainingTravel));
   };
 
   const destination = item && typeof window !== "undefined" ? getDestination() : null;
@@ -93,7 +110,7 @@ export default function CaseStudyTransition({ children }: { children: ReactNode 
   } as CSSProperties : undefined;
 
   return (
-    <TransitionContext.Provider value={{ openCaseStudy, isOpening: Boolean(item) }}>
+    <TransitionContext.Provider value={{ openCaseStudy, completeCaseStudyTransition, isOpening: Boolean(item) }}>
       {children}
       {item && (
         <div className={`case-study-transition ${active ? "is-active" : ""} ${leaving ? "is-leaving" : ""}`} style={cardStyle} aria-hidden>
@@ -107,14 +124,6 @@ export default function CaseStudyTransition({ children }: { children: ReactNode 
             ) : (
               <div className="size-full" style={item.posterStyle} />
             )}
-          </div>
-          <div className="case-study-transition__copy">
-            <p className="eyebrow">Case study</p>
-            <p className="display mt-5 text-[clamp(3rem,5.5vw,6rem)] leading-[0.9]">{item.client}</p>
-            <p className="mt-6 max-w-[28ch] text-lg leading-8 text-fg/80 md:text-xl">{item.outcome}</p>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {item.tags.map((tag) => <span key={tag} className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">{tag}</span>)}
-            </div>
           </div>
         </div>
       )}
