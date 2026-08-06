@@ -80,9 +80,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   if (!study) notFound();
 
   const sections = [
-    ["What was the challenge?", study.challenge],
-    ["Our approach", study.approach],
-    ["Result", study.result],
+    { id: "challenge", heading: "What was the challenge?", text: study.challenge, next: "Our approach", nextId: "approach" },
+    { id: "approach", heading: "Our approach", text: study.approach, next: "Result", nextId: "result" },
+    { id: "result", heading: "Result", text: study.result },
   ];
 
   return (
@@ -99,7 +99,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted">{study.kind}</p>
           </div>
 
-          <div className="flex flex-col justify-center lg:min-h-[min(72vh,720px)]">
+          <div className="flex min-h-[min(62vh,620px)] flex-col justify-center lg:min-h-[min(72vh,720px)]">
             <p className="eyebrow">Case study</p>
             <h1 className="display mt-6 max-w-[10ch] text-[clamp(4rem,8vw,7.5rem)] leading-[0.88]">{study.title}</h1>
             <p className="mt-8 max-w-[28ch] text-xl leading-9 text-fg/80 md:text-2xl md:leading-10">{study.line}</p>
@@ -108,14 +108,24 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 <span key={tag} className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">{tag}</span>
               ))}
             </div>
+            <a href="#challenge" className="case-study-next mt-auto pt-14 md:pt-20">
+              <span>What was the challenge?</span>
+              <span aria-hidden>↓</span>
+            </a>
           </div>
         </section>
 
-        <section className="mt-24 border-t border-line md:mt-32">
-          {sections.map(([heading, text], index) => (
-            <article key={heading} className="grid gap-7 border-b border-line py-14 md:grid-cols-[minmax(220px,0.42fr)_minmax(0,0.58fr)] md:gap-12 md:py-20">
-              <p className="eyebrow">0{index + 1} · {heading}</p>
-              <p className="display max-w-[25ch] text-[clamp(2rem,4vw,4rem)] leading-[1.08]">{text}</p>
+        <section className="mt-16 border-t border-line md:mt-24">
+          {sections.map((section, index) => (
+            <article id={section.id} key={section.id} className="case-study-story scroll-mt-28 border-b border-line">
+              <p className="eyebrow">0{index + 1} · {section.heading}</p>
+              <p className="display mt-16 max-w-[18ch] text-[clamp(2.8rem,5.4vw,5.5rem)] leading-[0.98] md:mt-24">{section.text}</p>
+              {section.next && (
+                <a href={`#${section.nextId}`} className="case-study-next mt-auto">
+                  <span>{section.next}</span>
+                  <span aria-hidden>↓</span>
+                </a>
+              )}
             </article>
           ))}
         </section>
