@@ -99,7 +99,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted">{study.kind}</p>
           </div>
 
-          <div className="flex min-h-[min(56vh,540px)] flex-col justify-center lg:min-h-[min(60vh,600px)]">
+          <div className="flex min-h-[min(56vh,540px)] flex-col justify-center lg:min-h-[calc(100dvh-196px)]">
             <p className="eyebrow">Case study</p>
             <h1 className="display mt-6 max-w-[10ch] text-[clamp(4rem,8vw,7.5rem)] leading-[0.88]">{study.title}</h1>
             <p className="mt-8 max-w-[28ch] text-xl leading-9 text-fg/80 md:text-2xl md:leading-10">{study.line}</p>
@@ -108,7 +108,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 <span key={tag} className="rounded-full border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">{tag}</span>
               ))}
             </div>
-            <a href="#challenge" className="case-study-next mt-12 pt-7 md:mt-14">
+            <a href="#challenge" className="case-study-next mt-auto pt-7">
               <span>What was the challenge?</span>
               <span aria-hidden>↓</span>
             </a>
