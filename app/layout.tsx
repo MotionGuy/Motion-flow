@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Anton, Geist, Geist_Mono } from "next/font/google";
-import CaseStudyTransition from "@/components/CaseStudyTransition";
 import "./globals.css";
 
 /* Anton drives the condensed stacked wordmark only */
@@ -51,7 +50,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <CaseStudyTransition>{children}</CaseStudyTransition>
+        {children}
         <div className="grain" aria-hidden />
       </body>
     </html>
