@@ -172,7 +172,7 @@ body {
   inset: 0;
   background: rgba(5, 7, 13, 0.76);
   opacity: 0;
-  transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 720ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .case-study-transition__video {
@@ -186,25 +186,13 @@ body {
   border-radius: 14px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
   transition:
-    left 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    top 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    width 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    height 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-radius 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    left 900ms 130ms cubic-bezier(0.16, 1, 0.3, 1),
+    top 900ms 130ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 900ms 130ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 900ms 130ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 900ms 130ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 900ms 130ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity 220ms ease;
-}
-
-.case-study-transition__copy {
-  position: absolute;
-  left: var(--end-copy-left);
-  top: var(--end-copy-top);
-  width: min(33vw, 480px);
-  opacity: 0;
-  transform: translate3d(70px, 0, 0);
-  transition:
-    opacity 420ms 210ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 680ms 210ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .case-study-transition.is-active .case-study-transition__dim {
@@ -220,25 +208,11 @@ body {
   box-shadow: 0 32px 100px rgba(0, 0, 0, 0.5);
 }
 
-.case-study-transition.is-active .case-study-transition__copy {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
 .case-study-transition.is-leaving .case-study-transition__video,
-.case-study-transition.is-leaving .case-study-transition__copy,
 .case-study-transition.is-leaving .case-study-transition__dim {
   opacity: 0;
   transition-duration: 290ms;
   transition-delay: 0ms;
-}
-
-@media (max-width: 767px) {
-  .case-study-transition__copy {
-    left: var(--end-copy-left);
-    top: var(--end-copy-top);
-    width: calc(100% - 40px);
-  }
 }
 
 .case-study-story {

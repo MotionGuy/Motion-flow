@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useCaseStudyTransition } from "@/components/CaseStudyTransition";
 
 type CaseStudyVideoProps = {
   src: string;
@@ -9,6 +10,7 @@ type CaseStudyVideoProps = {
 
 export default function CaseStudyVideo({ src, title }: CaseStudyVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const caseStudyTransition = useCaseStudyTransition();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -27,6 +29,10 @@ export default function CaseStudyVideo({ src, title }: CaseStudyVideoProps) {
     return () => video.removeEventListener("loadeddata", start);
   }, []);
 
+  const revealCaseStudy = () => {
+    caseStudyTransition?.completeCaseStudyTransition();
+  };
+
   return (
     <video
       ref={videoRef}
@@ -37,6 +43,7 @@ export default function CaseStudyVideo({ src, title }: CaseStudyVideoProps) {
       controls
       playsInline
       preload="auto"
+      onCanPlay={revealCaseStudy}
     />
   );
 }
