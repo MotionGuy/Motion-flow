@@ -233,6 +233,54 @@ html {
   padding-top: 1.25rem;
 }
 
+.case-study-copy {
+  max-width: 18ch;
+  font-size: clamp(2.8rem, 5.4vw, 5.5rem);
+  line-height: 0.98;
+}
+
+.case-study-copy--medium {
+  max-width: 25ch;
+  font-size: clamp(2.1rem, 2.9vw, 3.5rem);
+  line-height: 1.04;
+}
+
+.case-study-copy--long {
+  max-width: 27ch;
+  font-size: clamp(1.85rem, 2.55vw, 3rem);
+  line-height: 1.08;
+}
+
+.case-study-copy--extra-long {
+  max-width: 34ch;
+  font-size: clamp(1.4rem, 2vw, 2.45rem);
+  line-height: 1.12;
+}
+
+.case-study-intro-copy {
+  max-width: 34ch;
+  font-size: clamp(1.25rem, 1.55vw, 1.5rem);
+  line-height: 1.5;
+}
+
+.case-study-intro-copy--medium {
+  max-width: 36ch;
+  font-size: clamp(1.08rem, 1.35vw, 1.3rem);
+  line-height: 1.5;
+}
+
+.case-study-intro-copy--long {
+  max-width: 38ch;
+  font-size: clamp(0.98rem, 1.16vw, 1.16rem);
+  line-height: 1.5;
+}
+
+.case-study-intro-copy--extra-long {
+  max-width: 40ch;
+  font-size: clamp(0.87rem, 1vw, 1.05rem);
+  line-height: 1.5;
+}
+
 @media (max-width: 767px) {
   .case-study-panel {
     height: auto;

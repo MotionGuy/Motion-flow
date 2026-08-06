@@ -17,6 +17,7 @@ type Piece = {
   /** Drop a compressed web preview at /video/work/<slug>.mp4 to enable hover play */
   slug: string;
   posterStyle: CSSProperties;
+  previewSrc?: string;
 };
 
 const CASE_STUDY_COPY: Record<string, { challenge: string; approach: string; result: string }> = {
@@ -66,11 +67,18 @@ const CASE_STUDY_COPY: Record<string, { challenge: string; approach: string; res
     result: "A striking social-ready film designed to stop the scroll.",
   },
   "kind-sigma-glasses": {
-    challenge: "Make a physical product feel desirable through motion and detail.",
-    approach: "Controlled 3D lighting and product framing keep attention on the form.",
-    result: "A clean product visual for launch, ecommerce and paid media.",
+    challenge: "As the brand prepared to showcase its latest collection, it needed more than traditional product visuals. The goal was to communicate craftsmanship, elevate perceived value, and create an emotional connection that reflects the premium nature of the product.",
+    approach: "We partnered with Kind Sigma to produce a cinematic 3D product film that highlights every detail through macro shots, refined lighting, and fluid camera movement.",
+    result: "The result is a launch-ready visual asset designed for websites, social media, paid campaigns, and presentations, helping the brand stand out, strengthen its identity, and inspire purchase confidence.",
+  },
+  nettyworth: {
+    challenge: "The goal of this animation was to demonstrate how users could leverage multiple on-chain assets, including Polymarket prediction positions, to borrow liquidity through on-chain lending.",
+    approach: "By simplifying a complex DeFi workflow into a clear visual story",
+    result: "The video helped communicate the platform's value proposition to potential users and investors.",
   },
 };
+
+const R2_VIDEO_BASE_URL = "https://pub-9ff429d0848548f5b38c2273dbfe2921.r2.dev";
 
 /* Sourced from the studio Drive (2d animations / 3d animations folders).
    Outcome lines are working copy; Denys refines per piece. */
@@ -175,8 +183,8 @@ const PIECES: Piece[] = [
     },
   },
   {
-    title: "Kind Sigma Glasses",
-    line: "A 3D product visual for eyewear.",
+    title: "Kind Sigma",
+    line: "Kind Sigma creates premium eyewear that blends contemporary design, precision engineering, and everyday functionality.",
     kind: "3D",
     tags: ["Product"],
     slug: "kind-sigma-glasses",
@@ -184,6 +192,108 @@ const PIECES: Piece[] = [
       background:
         "radial-gradient(80% 110% at 70% 100%, rgba(169,199,255,0.18), transparent 60%), linear-gradient(180deg, #131620, #0e1118)",
     },
+  },
+  {
+    title: "NettyWorth",
+    line: "A Web3 platform for decentralized lending and liquidity management.",
+    kind: "3D",
+    tags: ["Web3", "DeFi"],
+    slug: "nettyworth",
+    previewSrc: `${R2_VIDEO_BASE_URL}/NettyWorth.mp4`,
+    posterStyle: {
+      background:
+        "radial-gradient(85% 100% at 75% 20%, rgba(108,133,235,0.24), transparent 58%), radial-gradient(100% 130% at 15% 110%, rgba(68,198,255,0.18), transparent 62%), #10131c",
+    },
+  },
+  {
+    title: "AI Transforming",
+    line: "How AI helps creative teams produce high-quality video content faster.",
+    kind: "3D",
+    tags: ["AI", "Creative"],
+    slug: "ai-transforming",
+    previewSrc: `${R2_VIDEO_BASE_URL}/AItransforming.mp4`,
+    posterStyle: { background: "radial-gradient(90% 110% at 80% 10%, rgba(108,133,235,0.25), transparent 60%), #10131c" },
+  },
+  {
+    title: "Arch Public",
+    line: "A digital investment platform for alternative assets.",
+    kind: "3D",
+    tags: ["Fintech", "Investment"],
+    slug: "arch-public",
+    previewSrc: `${R2_VIDEO_BASE_URL}/Arch_Public.mp4`,
+    posterStyle: { background: "radial-gradient(100% 120% at 20% 100%, rgba(43,60,114,0.6), transparent 65%), #10131c" },
+  },
+  {
+    title: "Game Rock",
+    line: "Premium portable gaming devices, pairing retro-inspired aesthetics with modern high-performance hardware.",
+    kind: "3D",
+    tags: ["Product", "Gaming"],
+    slug: "game-rock",
+    previewSrc: `${R2_VIDEO_BASE_URL}/Game_Rock.mp4`,
+    posterStyle: { background: "radial-gradient(90% 120% at 50% 10%, rgba(169,199,255,0.2), transparent 60%), #10131c" },
+  },
+  {
+    title: "Gemini 2",
+    line: "A next-generation AI search experience for intelligent discovery.",
+    kind: "3D",
+    tags: ["AI", "Search"],
+    slug: "gemini-2",
+    previewSrc: `${R2_VIDEO_BASE_URL}/Gemini2.mp4`,
+    posterStyle: { background: "radial-gradient(90% 100% at 80% 20%, rgba(108,133,235,0.24), transparent 58%), #10131c" },
+  },
+  {
+    title: "Hook",
+    line: "A data-driven framework for testing marketing hooks before a full campaign.",
+    kind: "3D",
+    tags: ["Marketing", "Data"],
+    slug: "hook",
+    previewSrc: `${R2_VIDEO_BASE_URL}/Hook.mp4`,
+    posterStyle: { background: "radial-gradient(100% 130% at 15% 110%, rgba(43,60,114,0.6), transparent 65%), #10131c" },
+  },
+  {
+    title: "NearVille",
+    line: "A peer-to-peer rental platform for trusted local communities.",
+    kind: "3D",
+    tags: ["Marketplace", "Product"],
+    slug: "nearville",
+    previewSrc: `${R2_VIDEO_BASE_URL}/NearVille.mp4`,
+    posterStyle: { background: "radial-gradient(90% 120% at 65% 0%, rgba(169,199,255,0.18), transparent 60%), #10131c" },
+  },
+  {
+    title: "SaaS Companies",
+    line: "A motion graphics explainer for video strategy across the customer journey.",
+    kind: "3D",
+    tags: ["SaaS", "Marketing"],
+    slug: "saas-companies",
+    previewSrc: `${R2_VIDEO_BASE_URL}/SaaS_companies.mp4`,
+    posterStyle: { background: "radial-gradient(90% 110% at 75% 20%, rgba(108,133,235,0.25), transparent 60%), #10131c" },
+  },
+  {
+    title: "Concept Video",
+    line: "Cinematic motion design and UI animation for complex digital products.",
+    kind: "3D",
+    tags: ["SaaS", "UI animation"],
+    slug: "concept-video",
+    previewSrc: `${R2_VIDEO_BASE_URL}/concept_video.mp4`,
+    posterStyle: { background: "radial-gradient(100% 120% at 25% 110%, rgba(43,60,114,0.7), transparent 66%), #10131c" },
+  },
+  {
+    title: "Gemini",
+    line: "An AI assistant for creating, learning, writing, coding, and problem solving.",
+    kind: "3D",
+    tags: ["AI", "Product"],
+    slug: "gemini",
+    previewSrc: `${R2_VIDEO_BASE_URL}/gemini.mp4`,
+    posterStyle: { background: "radial-gradient(90% 110% at 78% 15%, rgba(169,199,255,0.22), transparent 60%), #10131c" },
+  },
+  {
+    title: "Pisteyo",
+    line: "An AI-powered platform for turning product ideas into interactive prototypes.",
+    kind: "3D",
+    tags: ["AI", "Product"],
+    slug: "pisteyo",
+    previewSrc: `${R2_VIDEO_BASE_URL}/pisteyo.mp4`,
+    posterStyle: { background: "radial-gradient(100% 125% at 20% 100%, rgba(108,133,235,0.24), transparent 64%), #10131c" },
   },
 ];
 
@@ -213,7 +323,7 @@ export default function WorkGrid() {
               outcome={p.line}
               tags={[p.kind, ...p.tags]}
               posterStyle={p.posterStyle}
-              videoSrc={`/video/work/${p.slug}.mp4`}
+              videoSrc={p.previewSrc ?? `/video/work/${p.slug}.mp4`}
               href={`/work/${p.slug}`}
             />
           </Reveal>
