@@ -49,7 +49,7 @@ export default function PricingPage() {
                 <li key={feature} className="flex items-start gap-3 text-[15px] text-fg/90"><Check size={16} weight="bold" className="mt-1 shrink-0 text-blue" />{feature}</li>
               ))}
             </ul>
-            <Button href="/contact" variant={item.featured ? "primary" : "secondary"} className="mt-8 w-full">Book a call</Button>
+            <Button href="/contact" variant="secondary" className="mt-8 w-full">Book a call</Button>
           </article>
         ))}
       </div>

@@ -18,6 +18,7 @@ import LiquidBackground from "@/components/ui/LiquidBackground";
 import TextReveal from "@/components/ui/TextReveal";
 import Reveal from "@/components/ui/Reveal";
 import WorkCard from "@/components/ui/WorkCard";
+import LoopVideo from "@/components/ui/LoopVideo";
 
 /* Featured work; poster gradients stand in until real video assets land. */
 const WORK = [
@@ -90,10 +91,11 @@ const homePreviewSrc = (slug: string) =>
     ? `/video/home/${slug}.mp4`
     : `/video/work/${slug}.mp4`;
 
-/* Media zones are gradient stand-ins; drop stills or muted loops in later. */
+/* Each tile loops a real piece; the gradient shows while the clip loads. */
 const SERVICES = [
   {
     title: "Launch & category explainers",
+    clip: "/video/work/wafersight.mp4",
     line: "The hero film for a product or category launch.",
     span: "md:col-span-7",
     media:
@@ -101,6 +103,7 @@ const SERVICES = [
   },
   {
     title: "Product demos",
+    clip: "/video/work/tooltip.mp4",
     line: "Show the product doing the thing, clearly.",
     span: "md:col-span-5",
     media:
@@ -108,6 +111,7 @@ const SERVICES = [
   },
   {
     title: "Paid social & ad creative",
+    clip: "/video/work/platinum.mp4",
     line: "Cutdown packs and variants built to test.",
     span: "md:col-span-5",
     media:
@@ -115,6 +119,7 @@ const SERVICES = [
   },
   {
     title: "Conference & booth films",
+    clip: "/video/work/hyper.mp4",
     line: "Loops and sizzle for RSAC, Black Hat, DEF CON.",
     span: "md:col-span-7",
     media:
@@ -185,20 +190,9 @@ const PRICING = [
   },
 ];
 
-/* MOCK quotes: layout placeholders only. Swap for real client words before
-   launch; attribution stays role-level until names are approved. */
-const TESTIMONIALS = [
-  {
-    quote:
-      "They took a protocol we struggled to explain and made it land in under a minute.",
-    who: "Founder, Orally",
-  },
-  {
-    quote:
-      "The film made a dense data product finally look simple. Our demos start themselves now.",
-    who: "Product lead, Wafersight",
-  },
-];
+/* Real client words only, quoted verbatim with the client's approval. The
+   section stays hidden until at least one entry exists. */
+const TESTIMONIALS: { quote: string; who: string }[] = [];
 
 const CALENDLY_URL =
   "https://calendly.com/systrenskyi/discussing-collaboration-opportunities?background_color=131620&text_color=f5f7fa&primary_color=a9c7ff&hide_gdpr_banner=1&hide_event_type_details=1";
@@ -374,12 +368,12 @@ export default function Home() {
                   <div className="flex h-full flex-col rounded-[14px] border border-line bg-panel/60 p-7">
                     <h3 className="text-xl font-medium">{s.title}</h3>
                     <p className="mt-2 text-muted">{s.line}</p>
-                    {/* TODO: swap gradients for stills / muted loops per service */}
                     <div
-                      aria-hidden
-                      className="mt-6 aspect-[16/7] w-full rounded-[10px] border border-line/60"
+                      className="mt-6 aspect-[16/7] w-full overflow-hidden rounded-[10px] border border-line/60"
                       style={{ background: s.media }}
-                    />
+                    >
+                      <LoopVideo src={s.clip} />
+                    </div>
                   </div>
                 </Reveal>
               ))}
@@ -486,6 +480,7 @@ export default function Home() {
         </section>
 
         {/* Testimonials */}
+        {TESTIMONIALS.length > 0 && (
         <section className="border-t border-line">
           <div className="mx-auto max-w-[1280px] px-6 py-32 md:px-10 md:py-40">
             <Reveal>
@@ -505,6 +500,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        )}
 
         {/* Final CTA + Calendly */}
         <section className="relative overflow-hidden border-t border-line">
