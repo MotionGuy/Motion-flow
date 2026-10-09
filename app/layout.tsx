@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Geist, Geist_Mono } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 /* Anton drives the condensed stacked wordmark only */
@@ -21,6 +22,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  openGraph: { siteName: "Motion Flow", type: "website" },
+  twitter: { card: "summary_large_image" },
   title: "Motion Flow, the motion studio for cybersecurity",
   description:
     "Launch videos and ads that make complex security products make sense. Explainers, demos, and paid social for cybersecurity teams.",
